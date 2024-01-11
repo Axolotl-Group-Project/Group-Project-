@@ -1,0 +1,22 @@
+const User = require('../models/models.js');
+
+const userController = {};
+
+//createUser - create and save a new User into the database.
+userController.createUser = (req, res, next) => {
+    // destructure the usenamne and password from the request body
+    const { userName, password } = req.body;
+  
+    // create document in the User collection within database
+    User.create({ userName, password })
+      // document will have username and password from the request as properties
+      .then((user) => {
+        //save user _id to res.locals
+        res.locals.userID = user_id.toString();
+        return next();
+      })
+      .catch(err => {
+        return next(err)})
+  };
+
+  module.exports = userController; 
