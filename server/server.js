@@ -18,13 +18,8 @@ mongoose.connection.on('disconnected', () => {
 });const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-// route for creating new user:
 
-app.post('/signup', userController.createUser, (req, res)  => {
-    console.log('new user created')
-    res.redirect(302, '/dashboard');
-    // does react Router handle this redirect step?
-});
+
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
 
@@ -37,8 +32,21 @@ const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb
 
 // routes for landing page -- localhost?
 
+const userController = require('./controllers/userController');
+// route for creating new user:
+app.post('/signup', userController.createUser, (req, res)  => {
+    console.log('new user created')
+    res.status(201).json(res.locals.userID);
+});
+
 // login and sign up logic
-    //app.post logic etc
+app.post('/login', userController.verifyUser, (req, res) => {
+    if(res.locals.verifiedUser) {
+    console.log('found user in db')
+    res.status(201).json(res.locals.userID)
+    }
+    else res.status(401).json(userID);
+});
 
 // account creation logic *
 
