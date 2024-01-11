@@ -15,7 +15,9 @@ mongoose.connection.on('error', (err) => {
 // logic that will display in terminal if mongoose to atlas is disconnected
 mongoose.connection.on('disconnected', () => {
     console.log('Mongoose disconnected.')
-});const express = require('express');
+});
+
+const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -47,8 +49,6 @@ app.post('/login', userController.verifyUser, (req, res) => {
     }
     else res.status(401).json(userID);
 });
-
-// account creation logic *
 
 // logic to test mongoose connection (connected to database) *
   //error handling

@@ -30,10 +30,19 @@ const userSchema = new Schema({
 //model for 'users' collection:
 const User = mongoose.model('user', userSchema);
 
+// schema for session:
+const sessionSchema = new Schema({
+    cookieID: {type: String, required: true, unique: true },
+    createdAt: {type: Date, expires: 30, default: Date.now }
+})
+//model for 'sessions':
+const Session = mongoose.model('Session', sessionSchema);
+
 //export models in object to be used in the controller:
 module.exports = {
     Drink,
     User,
+    Session,
 };
 // //**remember to import into controllers:
-// const { Drink, User } = require('../models/models.js')*/
+// const { Drink, User, Session } = require('../models/models.js')*/
