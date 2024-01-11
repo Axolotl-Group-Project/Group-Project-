@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+// import for environmental variables - .config => when you type it autofills
+require('dotenv').config();
+
+const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
+
 // route for creating new user:
 
 app.post('/signup', userController.createUser, (req, res)  => {
@@ -8,10 +13,6 @@ app.post('/signup', userController.createUser, (req, res)  => {
     res.redirect(302, '/dashboard');
     // does react Router handle this redirect step?
 });
-// import for environmental variables - .config => when you type it autofills
-require('dotenv').config();
-
-const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
                                                 // * = working on now
 
@@ -30,9 +31,19 @@ const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb
 
 // functionality to start the server
 
-// root for adding a drink *
+// route for adding a drink *      // similar logic for when I make a branch const addDrink = new drinkSchema({})
+  // middleware for validating drinks
+drinkDataValidation = (req, res, next) => {
+// confirm required data
 
-    // similar logic for when I make a branch const addDrink = new drinkSchema({})
+// error status if incorrect
+
+}
+
+app.post('/addDrink', drinkDataValidation, (req, res) => {
+// add a res 200, possibly try and catch blocks
+  res.json({ success: true, message: 'Drink was added to the database' });
+});
 
 // route for deleting a drink
 
