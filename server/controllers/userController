@@ -19,4 +19,29 @@ userController.createUser = (req, res, next) => {
         return next(err)})
   };
 
+//verifyUser - verify existing user in database
+userController.verifyUser = (req, res, next) => {
+    const { username, password } = req.body;
+  // find matching "username" document in the User collection within database
+  User.findOne({ username })
+    .exec()
+    .then((user) => {
+      // query to databse does not have corresponding username or password doesn't match...
+      if (!user.userName || user.password !== password) {
+        res.locals.userVerified = false;
+        return next();
+      } 
+      // query to db successfully finds user
+      else {
+        res.locals.userID = user_id; 
+        res.locals.userVerified = true;
+        return next();
+      }
+    })
+    .catch((error) => 
+      next({ error }))
+};
+       
+
+
   module.exports = userController; 

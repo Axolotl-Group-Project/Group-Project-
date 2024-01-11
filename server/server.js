@@ -36,10 +36,17 @@ const userController = require('./controllers/userController');
 // route for creating new user:
 app.post('/signup', userController.createUser, (req, res)  => {
     console.log('new user created')
-    res.status(200);
+    res.status(201).json(res.locals.userID);
 });
+
 // login and sign up logic
-    //app.post logic etc
+app.post('/login', userController.verifyUser, (req, res) => {
+    if(res.locals.verifiedUser) {
+    console.log('found user in db')
+    res.status(201).json(res.locals.userID)
+    }
+    else res.status(401).json(userID);
+});
 
 // account creation logic *
 
