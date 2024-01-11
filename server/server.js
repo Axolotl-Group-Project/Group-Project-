@@ -22,6 +22,8 @@ const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb
 
 // root for adding a drink *
 
+    // similar logic for when I make a branch const addDrink = new drinkSchema({})
+
 // route for deleting a drink
 
 // edit/update a drink
