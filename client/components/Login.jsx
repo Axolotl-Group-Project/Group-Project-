@@ -5,11 +5,11 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Submitted:', { username, email });
+        console.log('Submitted:', { username, password });
       };
 
     return(
@@ -25,13 +25,15 @@ const Login = () => {
                 </label>
                 <br />
                 <label>
-                    Email:
+                    Password:
                     <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
+                <br />
+                <button type='submit' onClick={handleSubmit}>Login</button>
             </form>
         </div>
     )
