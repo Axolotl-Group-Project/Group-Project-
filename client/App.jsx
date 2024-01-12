@@ -5,7 +5,9 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 //import all components here 
 import Test from './components/Test.jsx';
+
 import DrinkFeed from './components/DrinkFeed.jsx';
+
 import Login from './components/Login.jsx';
 
 const App = () => {
@@ -28,7 +30,10 @@ const navigate = useNavigate();
         </nav>
         
        <Routes>
-        <Route path='/' element={<Login/>} />
+
+        {<Route path='/' element={<Login/>} />}
+
+   
         <Route path='/test' element={<Test/>} />
         {/* <Route path='/login' element={<Login/>} /> */}
         {/* <Route path='/createUser' element={<CreateUser/>} /> */}
