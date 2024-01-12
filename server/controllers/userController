@@ -12,7 +12,7 @@ userController.createUser = (req, res, next) => {
       // document will have username and password from the request as properties
       .then((user) => {
         //save user _id to res.locals
-        res.locals.userID = user_id.toString();
+        res.locals.userID = user._id;
         return next();
       })
       .catch(err => {
@@ -33,7 +33,7 @@ userController.verifyUser = (req, res, next) => {
       } 
       // query to db successfully finds user
       else {
-        res.locals.userID = user_id; 
+        res.locals.userID = user._id; 
         res.locals.userVerified = true;
         return next();
       }

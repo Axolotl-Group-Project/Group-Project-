@@ -40,20 +40,23 @@ mongoose.connection.on('disconnected', () => {
 
 // routes for landing page -- localhost?
 
-const userController = require('./controllers/userController');
+// import controllers:
+const userController = require('./controllers/userController.js');
+const cookieController = require ('./controllers/cookieController.js')
+const sessionController = require ('./controllers/sessionController.js')
 // route for creating new user:
-app.post('/signup', userController.createUser, (req, res)  => {
+app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res)  => {
     console.log('new user created')
     res.status(201).json(res.locals.userID);
 });
 
 // login and sign up logic
-app.post('/login', userController.verifyUser, (req, res) => {
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
     if(res.locals.verifiedUser) {
     console.log('found user in db')
-    res.status(201).json(res.locals.userID)
+     return res.status(201).json(res.locals.userID)
     }
-    else res.status(401).json(userID);
+    else {res.status(401).send('problem with username and/or password')};
 });
 
 // logic to test mongoose connection (connected to database) *
