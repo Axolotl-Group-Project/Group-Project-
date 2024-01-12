@@ -39,10 +39,10 @@ userController.verifyUser = (req, res, next) => {
 
         res.locals.userVerified = true;
         return next();
-      });
-    })
+      }
+      })
     .catch((error) => 
-      next({ error }))
+      next({ error }));
 };
        
 
