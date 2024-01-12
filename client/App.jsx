@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-// import { Route } from 'react-router';
+import './styles.scss';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 //import all components here 
 import Test from './components/Test.jsx';
 
-import DrinkFeed from './components/DrinkFeed.jsx';
+import DrinkFeed from './pages/DrinkFeed.jsx';
 import Login from './components/Login.jsx';
 import CreateUser from './components/CreateUser.jsx';
 
@@ -29,19 +29,17 @@ const navigate = useNavigate();
     }
     return(
         <>
-        <nav style={{display:'flex',justifyContent:'space-evenly',height:'50px',border:'solid'}}>
+        <nav style={{display:'flex',justifyContent:'space-between',height:'40px',backgroundColor:'grey'}}>
             <button onClick={handleFeedClick}>To Main Feed</button>
             <button onClick={handleLoginClick}>Go to login</button>
             <button onClick={handleCreateUserClick}>Go to Create User</button>
         <button onClick={handleTestClick}>Take me to test! </button>
-        <p>This navbar/header should appear on every page </p>
+        <button>Dynamic Nav Button</button>
         </nav>
         
        <Routes>
 
-        {<Route path='/' element={<CreateUser />} />}
-
-   
+        <Route path='/' element={<CreateUser />} />
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/createUser' element={<CreateUser/>} />
@@ -50,38 +48,8 @@ const navigate = useNavigate();
         </Routes>
         </>
     )
-    //landing page:
-
-    //main page:
+    
 
 }
-
-
-// const App = () =>{
-//     return(
-//         <>
-//         <nav style={{textAlign:'center'}}>
-//             <ul style={{listStylePosition:'inside', listStyleType:'none', backgroundColor:'rgb(230, 230, 238, .5)', margin:'0px'}}>
-//                 <li>Super Cool NavBar</li>
-//                 <li><Link to='/'>Home</Link></li>
-//                 <li><Link to='/hikes/create'>Create a new Hike here!</Link></li>
-//             </ul>
-//         </nav>
-
-
-//         <Routes>
-//             <Route path="/" element={<Home />}/>
-//             <Route path="/hikes/create" element={<CreateHike/>}></Route>
-//             <Route path="/hikes/details/:id" element={<ShowHike/>}></Route>
-//             <Route path="/hikes/edit/:id" element={<UpdateHike/>}></Route>
-//             <Route path="/hikes/delete/:id" element={<DeleteHike/>}></Route>
-//             <Route path="*" element={<NotFound/>}></Route>
-//             <Route path='/hikes/imageloader/:id' element ={<ImageLoader/>}></Route>
-//             {/* <Route path="/hikes" element={<Hikelist/>}/> */}
-            
-//         </Routes>    
-//         </>
-//     )
-// };
 
 export default App

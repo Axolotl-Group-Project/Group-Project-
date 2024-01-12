@@ -8,7 +8,7 @@ const app = express();
 
 const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
-const PORT = 3000;
+const PORT = 9000;
 
 // import controllers:
 const userController = require('./controllers/userController.js');
