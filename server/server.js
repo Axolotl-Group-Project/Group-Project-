@@ -1,14 +1,21 @@
+// import for environmental variables - .config => when you type it autofills
+require('dotenv').config();
+
 // allows us to use 'mongoose' functionality
 const mongoose = require('mongoose');
 
 const app = express();
-// import for environmental variables - .config => when you type it autofills
-require('dotenv').config();
 
 const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
-// route for creating new user:
+const PORT = 3000;
 
+// import controllers:
+const userController = require('./controllers/userController.js');
+const cookieController = require ('./controllers/cookieController.js')
+const sessionController = require ('./controllers/sessionController.js')
+
+// logic to test mongoose connection (connected to database) *
 
 // logic that will display in terminal if mongoose connection to atlas is successful
 mongoose.connection.on('connected', () => {
@@ -27,12 +34,6 @@ mongoose.connection.on('disconnected', () => {
 });const express = require('express');
 
 
-
-
-
-
-
-
                                                 // * = working on now
 
 
@@ -40,10 +41,7 @@ mongoose.connection.on('disconnected', () => {
 
 // routes for landing page -- localhost?
 
-// import controllers:
-const userController = require('./controllers/userController.js');
-const cookieController = require ('./controllers/cookieController.js')
-const sessionController = require ('./controllers/sessionController.js')
+
 // route for creating new user:
 app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res)  => {
     console.log('new user created')
@@ -59,13 +57,12 @@ app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, se
     else {res.status(401).send('problem with username and/or password')};
 });
 
-// logic to test mongoose connection (connected to database) *
-  //error handling
-
 // functionality to start the server
 
 // route for adding a drink *      // similar logic for when I make a branch const addDrink = new drinkSchema({})
-  // middleware for validating drinks
+  
+// middleware for validating drinks
+
 drinkDataValidation = (req, res, next) => {
 // confirm required data
 
@@ -81,6 +78,12 @@ app.post('/addDrink', drinkDataValidation, (req, res) => {
 // route for deleting a drink
 
 // edit/update a drink
+  //error handling
+
+// server: 
+app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
+
+module.exports = app;
 
 
 
