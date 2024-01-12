@@ -1,4 +1,6 @@
-const User = require('../models/models.js');
+
+const { User } = require('../models/models.js');
+
 const userController = {};
 const bcrypt = require('bcrypt');
 
@@ -12,7 +14,7 @@ userController.createUser = (req, res, next) => {
       // document will have username and password from the request as properties
       .then((user) => {
         //save user _id to res.locals
-        res.locals.userID = user_id.toString();
+        res.locals.userID = user._id;
         return next();
       })
       .catch(err => {
@@ -29,20 +31,12 @@ userController.verifyUser = (req, res, next) => {
       if (!user) {
         res.locals.userVerified = false;
         return next();
-      }
-      // if user is found, compare the provided password with the hashed password
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) {
-          // an error occurred during the comparison, pass the error to the next middleware
-          return next(err);
-        }
-        if (!isMatch) {
-          // the password provided does not match the hashed password in the database
-          res.locals.userVerified = false;
-          return next();
-        }
-        // if passwords match, set user verification to true and store user's ID
-        res.locals.userID = user._id;
+
+      } 
+      // query to db successfully finds user
+      else {
+        res.locals.userID = user._id; 
+
         res.locals.userVerified = true;
         return next();
       });
