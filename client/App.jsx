@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 // import { Route } from 'react-router';
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 //import all components here 
 import Test from './components/Test.jsx';
 
 const App = () => {
+const navigate = useNavigate();
+
+
+
+
+    const handleTestClick = ()  =>{
+        navigate('./test');
+    }
+
+
+
     return(
         <>
         <nav></nav>
-        <h1>is this even working?</h1>
-        <button>Take me to test! </button>
+        <h1>this is from App component </h1>
+        {/* <button onClick={handleTestClick}>Take me to test! </button> */}
 
 
        <Routes>
-        {/* <Route path='/' element={<Test/>} /> */}
+        {/* <Route path='/' element={<Login/>} /> */}
         <Route path='/test' element={<Test/>} />
         {/* <Route path='/login' element={<Login/>} />
         <Route path='/createUser' element={<CreateUser/>} />

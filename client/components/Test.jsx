@@ -3,7 +3,7 @@ import React from 'react'
 const Test = () => {
   return (
     
-    <div>Coming from Test component
+    <div style={{background:'red'}}>You have arrived at test component 
       <br></br>
     </div>
   )
