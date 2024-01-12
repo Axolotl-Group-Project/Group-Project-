@@ -26,6 +26,7 @@ const DrinkFeed = () => {
         // fetch info here - post drink to DB
     }
 
+        console.log(recoveryThoughts);
 
 
 
@@ -38,18 +39,43 @@ const DrinkFeed = () => {
                 <input type='text' placeholder='Search here'></input>
             </div>
             <div style={{ border: 'solid', display: 'flex', height: '300px', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', }}>
 
                     <label>Drink Name</label>
-                    <input type='text' placeholder='Mango Margarita'></input>
+                    <input 
+                    type='text' 
+                    placeholder='Mango Margarita' 
+                    onChange={(e) => setDrink(e.target.value)}
+                    ></input>
+
                     <label>Location</label>
-                    <input type='text' placeholder='Glorias Latin Cuisine'></input>
+                    <input 
+                    type='text' 
+                    placeholder='Glorias Latin Cuisine'
+                    onChange={(e) => setLocation(e.target.value)}
+                    ></input>
+
                     <label>Ingredients</label>
-                    <input type='text' placeholder='Tequila!'></input>
+                    <input 
+                    type='text' 
+                    placeholder='Tequila!'
+                    onChange={(e) => setIngredients(e.target.value)}
+                    ></input>
+
                     <label>Thoughts</label>
-                    <input type='text' placeholder='muy delicioso'></input>
+                    <input 
+                    type='text' 
+                    placeholder='muy delicioso'
+                    onChange={(e) => setThoughts(e.target.value)}
+                    ></input>
+
                     <label>Recovery Thoughts</label>
-                    <input type='text' placeholder='none'></input>
+                    <input 
+                    type='text' 
+                    placeholder='none'
+                    onChange={(e) => setRecoveryThoughts(e.target.value)}
+                    ></input>
+
                 </div>
                 <div >
                     <button style={{height:'200px',width:'200px',marginTop:'20px',marginRight:'20px'}}>Add drink to database! But decorate me too!</button>
