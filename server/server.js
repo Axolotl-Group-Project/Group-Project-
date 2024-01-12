@@ -31,18 +31,23 @@ app.post('/signup', userController.createUser, (req, res)  => {
 
 // functionality to start the server
 
-// route for adding a drink *      // similar logic for when I make a branch const addDrink = new drinkSchema({})
+// route for adding a drink *      // similar logic for when I make a branch const 
   // middleware for validating drinks
 drinkDataValidation = (req, res, next) => {
 // confirm required data
-
+const {drink, location} = req.body;
 // error status if incorrect
-
+  if(!drink || !location){
+    return res.status(400).json({ success: false, message: 'Required Drink Data Not Entered' });
+  }
 }
 
 app.post('/addDrink', drinkDataValidation, (req, res) => {
+
+
+  newDrink = new drinkSchema({})
 // add a res 200, possibly try and catch blocks
-  res.json({ success: true, message: 'Drink was added to the database' });
+  res.status(201).json({ success: true, message: 'Drink was added to the database' });
 });
 
 // route for deleting a drink
