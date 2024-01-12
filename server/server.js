@@ -101,12 +101,12 @@ app.delete('/removeDrink/:id', (req, res) => {
       if (removedDrink) {
         res.status(204).json({ success: true, message: `Sucessfully removed ${removedDrink} from the database`});
       } else {
-        res.status(404).json({ success: false, message: `${removedDrink} was not located in database` });
+        res.status(404).json({ success: false, message: `Drink with ID ${drinkId} was not found in the database` });
       }
     })
     .catch((error) => {
       console.error('Error removing drink:', error);
-      res.status(500).json({ success: false, message: 'Unable to remove drink from the database' });
+      res.status(500).json({ success: false, message: 'Unable to remove drink from the database', error: error.message });
     });
 });
 
@@ -130,9 +130,10 @@ app.put('/updateDrink/:id', (req, res) => {
   drinkSchema.findByIdAndUpdate(drinkId, update, { new: true })
     .then((updatedDrink) => {
       if (updatedDrink) {
-        res.status(200).json({ success: true, message: `Successfully updated to ${updatedDrink.name}`, updatedDrink });
+        res.status(200).json({ success: true, message: `Successfully updated drink with ID ${drinkId} to ${updatedDrink.name}`, updatedDrink });
       } else {
-        res.status(404).json({ success: false, message: 'Drink not found in the database' });
+        // possibly add alert if it would help on front end
+        res.status(404).json({ message: 'Unable to update the drink in the database'});
       }
     })
     .catch((error) => {
