@@ -5,33 +5,39 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 
 //import all components here 
 import Test from './components/Test.jsx';
+
+import DrinkFeed from './components/DrinkFeed.jsx';
+
 import Login from './components/Login.jsx';
 
 const App = () => {
 const navigate = useNavigate();
 
-
-
-
     const handleTestClick = ()  =>{
         navigate('./test');
     }
-
-
-
+    const handleFeedClick = () => {
+        navigate('./drinkFeed');
+    }
     return(
         <>
-        <nav></nav>
-        <h1>this is from App component </h1>
-        {/* <button onClick={handleTestClick}>Take me to test! </button> */}
-
-
+        <nav style={{display:'flex',justifyContent:'space-evenly',height:'50px',border:'solid'}}>
+            <button onClick={handleFeedClick}>To Main Feed</button>
+            <button>NavLink 2</button>
+            <button>NavLink 3</button>
+        <button onClick={handleTestClick}>Take me to test! </button>
+        <p>This navbar/header should appear on every page </p>
+        </nav>
+        
        <Routes>
+
         {<Route path='/' element={<Login/>} />}
+
+   
         <Route path='/test' element={<Test/>} />
-        {/* <Route path='/login' element={<Login/>} />
-        <Route path='/createUser' element={<CreateUser/>} />
-        <Route path='/drinkFeed' element={<DrinkFeed/>} /> */}
+        {/* <Route path='/login' element={<Login/>} /> */}
+        {/* <Route path='/createUser' element={<CreateUser/>} /> */}
+        <Route path='/drinkFeed' element={<DrinkFeed/>} />
 
         </Routes>
         </>

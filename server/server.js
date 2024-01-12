@@ -33,7 +33,7 @@ mongoose.connection.on('disconnected', () => {
 
 
 
-                                                // * = working on now
+
 
 
 // take in json obj and observe static files
