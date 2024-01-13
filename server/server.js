@@ -47,7 +47,7 @@ app.post('/addDrink', drinkController.drinkDataValidation, (req, res) => {
   });
 
 // route for deleting a drink
-// change to 'removeDrink/:name'
+
 app.delete('/removeDrink/:id', drinkController.deleteDrink);
 
 // route for editing/updating drink
