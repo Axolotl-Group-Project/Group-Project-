@@ -15,6 +15,9 @@ const PORT = 9000;
 const userController = require('./controllers/userController.js');
 //const cookieController = require ('./controllers/cookieController.js');
 // const sessionController = require ('./controllers/sessionController.js')
+const drinkController = require('./controllers/drinkController.js');
+const { Drink } = require('./models/models.js');
+
 
 // // route for creating new user:
 app.post('/signup', userController.createUser, (req, res)  => {
@@ -24,38 +27,24 @@ app.post('/signup', userController.createUser, (req, res)  => {
 
 // // login and sign up logic
 app.post('/login', userController.verifyUser, (req, res) => {
-    if(res.locals.verifiedUser) {
-    console.log('found user in db')
-     return res.status(201).json(res.locals.userID)
+    if(res.locals.userVerified) {
+    console.log('found user in db');
+     return res.status(201).json(res.locals.userID);
     }
     else {res.status(401).send('problem with username and/or password')};
 });
 
-//  // middleware for validating drinks
- const drinkDataValidation = (req, res, next) => {
-    // confirm required data
-    const {drink, location} = req.body;
-    // error status if incorrect
-      if(!drink || !location){
-        return res.status(400).json({ success: false, message: 'Required Drink Data Not Entered' });
-      }
-      next();
+
+// //     // route for adding a drink 
+app.post('/addDrink', drinkController.drinkDataValidation, (req, res) => {
+//app.post('/addDrink', drinkController.addDrink, anom. function)
+    if(res.locals.drinkVerified){
+      res.status(201).json({ success: true, message: 'Drink was added to the database' });
     }
-
-//     // route for adding a drink 
-app.post('/addDrink', drinkDataValidation, (req, res) => {
-
-    const newDrink = new drinkSchema(req.body);
-  
-    newDrink.save()
-    .then(()=>{
-    // confirmation it works
-    res.status(201).json({ success: true, message: 'Drink was added to the database' });
-    })
-    .catch((error) => {
-      console.error('Error adding drink:', error);
-      res.status(500).json({ success: false, message: 'Unable to add drink to the database' });
-    });
+    else{
+      console.error('Error adding drink from drinkDataValidation:', error);
+      res.status(400).json({ success: false, message: 'Unable to add drink to the database' });;
+    }
   });
 
 //   // route for deleting a drink:
@@ -64,7 +53,7 @@ app.delete('/removeDrink/:id', (req, res) => {
     const drinkId = req.params.id;
   
     // Use Mongoose to find the drink by ID and remove it
-    drinkSchema.findByIdAndDelete(drinkId)
+    Drink.findByIdAndDelete(drinkId)
       .then((removedDrink) => {
         if (removedDrink) {
           res.status(204).json({ success: true, message: `Sucessfully removed ${removedDrink} from the database`});
@@ -95,7 +84,7 @@ app.put('/updateDrink/:id', (req, res) => {
   const update = { $set: { name: newName } };
 
 //   // Use Mongoose to find the drink by ID and update it
-  drinkSchema.findByIdAndUpdate(drinkId, update, { new: true })
+  Drink.findByIdAndUpdate(drinkId, update, { new: true })
     .then((updatedDrink) => {
       if (updatedDrink) {
         res.status(200).json({ success: true, message: `Successfully updated drink with ID ${drinkId} to ${updatedDrink.name}`, updatedDrink });
@@ -110,18 +99,17 @@ app.put('/updateDrink/:id', (req, res) => {
     });
 });
   
-// //error handling
+// // //error handling
 
-// // server: 
+// // // server: 
 app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
 
 module.exports = app;    
-                                       
-// // extras: 
 
-// // bcrypt addition
 
-// // take in json obj and observe static files
+// // // bcrypt addition
+
+// // // take in json obj and observe static files
 
 
 

@@ -23,20 +23,20 @@ userController.createUser = (req, res, next) => {
 
 //verifyUser - verify existing user in database
 userController.verifyUser = (req, res, next) => {
-    const { username, password } = req.body;
+    const { userName, password } = req.body;
   // find matching "username" document in the User collection within database
-  User.findOne({ username })
+  User.findOne({ userName })
     .exec()
     .then((user) => {
       if (!user) {
         res.locals.userVerified = false;
+        console.log('user not found in verifyUser middleware');
         return next();
-
       } 
       // query to db successfully finds user
       else {
         res.locals.userID = user._id; 
-
+        console.log('found user for login');
         res.locals.userVerified = true;
         return next();
       }
