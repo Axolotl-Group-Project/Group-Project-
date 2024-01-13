@@ -36,7 +36,7 @@ app.post('/login', userController.verifyUser, (req, res) => {
 
 // //     // route for adding a drink 
 app.post('/addDrink', drinkController.drinkDataValidation, (req, res) => {
-//app.post('/addDrink', drinkController.addDrink, anom. function)
+
     if(res.locals.drinkVerified){
       res.status(201).json({ success: true, message: 'Drink was added to the database' });
     }

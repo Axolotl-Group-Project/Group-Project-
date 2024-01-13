@@ -23,10 +23,10 @@ drinkController.drinkDataValidation = async (req, res, next) => {
 
 
 drinkController.deleteDrink = async (req, res, next) => {
-  const drinkId = req.params._id;
+  const drinkId = req.params.id;
   
   try {
-    const removedDrink = await Drink.findByIdAndDelete(drinkId);
+    const removedDrink = await Drink.findByIdAndDelete(drinkId).exec;
     
     if (removedDrink) {
       res.status(204).json({ success: true, message: `Successfully removed drink from the database` });
