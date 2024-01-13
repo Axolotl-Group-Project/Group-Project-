@@ -10,6 +10,7 @@ drinkController.drinkDataValidation = async (req, res, next) => {
     return next();
   } else {
     try {
+      // ability to add additional fields related to the schema
       const createdDrink = await Drink.create({ drink, location });
       res.locals.drinkVerified = true;
       res.locals.createdDrink = createdDrink;
@@ -31,6 +32,7 @@ drinkController.deleteDrink = async (req, res, next) => {
     const removedDrink = await Drink.findByIdAndDelete(drinkId)
     if (removedDrink) {
       console.log('we have entered the removedDrink conditional');
+// this status should be returned on server.js
       res.status(200).json({ success: true, message: `Successfully removed drink from the database` });
     } else {
       res.status(404).json({ success: false, message: `Drink with ID ${drinkId} was not found in the database` });
