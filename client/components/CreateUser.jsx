@@ -19,7 +19,7 @@ const CreateUser = () => {
     }
   };
 
-  }
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const CreateUser = () => {
 
   const handleLoginClick = () => {
     navigate('../Login')
-  }
+  };
 
   return (
     <div>
@@ -71,6 +71,6 @@ const CreateUser = () => {
         </div>
     </div>
   )
-
-
+  }
+  
 export default CreateUser;
