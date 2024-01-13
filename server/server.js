@@ -52,6 +52,9 @@ app.delete('/removeDrink/:id', drinkController.deleteDrink);
 // route for editing/updating drink
 app.put('/updateDrink/:id', drinkController.updateDrink);
 
+app.get('/drinks', drinkController.getAllDrinks, (req, res) => {
+    res.status(200).json({ success: true, drinks: res.locals.drinks });
+});
 
   
 // // //error handling

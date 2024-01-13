@@ -23,7 +23,7 @@ drinkController.drinkDataValidation = async (req, res, next) => {
 
 
 drinkController.deleteDrink = async (req, res, next) => {
-  const drinkId = req.params.id;
+  const drinkId = req.params._id;
   
   try {
     const removedDrink = await Drink.findByIdAndDelete(drinkId);
@@ -41,13 +41,13 @@ drinkController.deleteDrink = async (req, res, next) => {
 
 drinkController.updateDrink = async (req, res, next) => {
   const drinkId = req.params.id;
-  const newName = req.body.name;
+  const newDrinkName = req.body.drink;
 
-  if (!newName) {
+  if (!newDrinkName) {
     return res.status(400).json({ success: false, message: 'New name must be provided for updating the drink' });
   }
 
-  const update = { $set: { name: newName } };
+  const update = { $set: { drink: newDrinkName } };
 
   try {
     const updatedDrink = await Drink.findByIdAndUpdate(drinkId, update, { new: true });
@@ -61,6 +61,19 @@ drinkController.updateDrink = async (req, res, next) => {
     console.log('error updating drink')
     return next(error);
   }
+};
+
+drinkController.getAllDrinks = async (req, res, next) => {
+  try {
+      const drinks = await Drink.find({}); // Fetch all drinks
+      res.locals.drinks = drinks; // Store drinks in res.locals for potential further use
+      next(); 
+      // Proceed to next middleware (or send response if this is the last middleware)
+  } catch (error) {
+      // Pass the error to the error-handling middleware
+      console.log('error getting all drinks from getAllDrinks');
+    next(error);
+  };
 };
 
 module.exports = drinkController;
