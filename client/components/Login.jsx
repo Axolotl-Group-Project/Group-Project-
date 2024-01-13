@@ -12,13 +12,14 @@ const Login = () => {
         console.log('Submitted:', { username, password });
       };
 
-    const handleHaveAnAccountClick = () => {
+    const handleCreateUser = () => {
         //why doesn't this go anywhere?
-        navigate('../createUser')
+        navigate('../CreateUser')
     }
 
       return(
         <div className='login-form'>
+            <h1>Login Page</h1>
             <form>
                 <label>
                 Username:
@@ -41,7 +42,7 @@ const Login = () => {
                 <button type='submit' onClick={handleSubmit}>Login</button>
                 <br />
                 <label>Don't have an account?</label>
-                <button onClick={handleHaveAnAccountClick}>Create one!</button>
+                <button onClick={handleCreateUser}>Create one!</button>
             </form>
         </div>
     )
