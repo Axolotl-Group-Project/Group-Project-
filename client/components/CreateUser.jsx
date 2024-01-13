@@ -9,7 +9,7 @@ const CreateUser = () => {
 
   const newUser = async (username, password) => {
     try {
-      const response = await axios.post('', {
+      const response = await axios.post('/createUser', {
         username,
         password,
       });
