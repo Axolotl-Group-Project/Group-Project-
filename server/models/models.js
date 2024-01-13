@@ -2,12 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // set URI from atlas:
-//const MONGO_URI = '<insert URI link from atlas db>';
+const {DB_USERNAME, DB_PASSWORD} = process.env;
+const MONGO_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
 //connect to db:
-// mongoose.connect(MONGO_URI, {dbName: 'bevibrevi'})
-//     .then(() => console.log('Connected to Mongo DB.'))
-//     .catch(err => console.log(err));
+mongoose.connect(MONGO_URI, {dbName: 'axolotl'})
+    .then(() => console.log('Connected to Mongo DB.'))
+    .catch(err => console.log(err));
+
+// // logic that will display in terminal if mongoose connection to atlas is successful
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected to Atlas!')
+});
+
+// // logic that will display in terminal if mongoose to atlas encounters an error
+mongoose.connection.on('error', (err) => {
+    console.log('Mongoose connection error: ', err)
+});
+
+// // logic that will display in terminal if mongoose to atlas is disconnected
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose disconnected.')
+});
+
 
 // set schema for the 'drinks' collection:
 const drinkSchema = new Schema({
@@ -18,7 +35,7 @@ const drinkSchema = new Schema({
     recovery: String,
     thoughts: String,
 });
-//create model for 'drinks' collection:
+//model for 'drinks' collection:
 const Drink = mongoose.model('drink', drinkSchema);
 
 //schema for users:
