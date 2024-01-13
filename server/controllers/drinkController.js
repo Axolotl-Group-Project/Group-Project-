@@ -42,6 +42,8 @@ drinkController.deleteDrink = async (req, res, next) => {
 };
 
 drinkController.updateDrink = async (req, res, next) => {
+  // note that the logic for new drink name only allows for a drink name to be changed
+  // would need to do similar for each additional field in the model
   const drinkId = req.params.id;
   const newDrinkName = req.body.drink;
 
