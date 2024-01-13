@@ -1,46 +1,29 @@
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
 
-// allows us to use 'mongoose' functionality
-const mongoose = require('mongoose');
-
+const express = require ('express');
 const app = express();
 
-const URI = `mongodb+srv://${db_userName}:${db_password}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
+app.use(express.json());
+
+//const cookieParser = require('cookie-parser');
+//app.use(cookieParser())
 
 const PORT = 9000;
 
-// import controllers:
+// // import controllers:
 const userController = require('./controllers/userController.js');
-const cookieController = require ('./controllers/cookieController.js')
-const sessionController = require ('./controllers/sessionController.js')
+//const cookieController = require ('./controllers/cookieController.js');
+// const sessionController = require ('./controllers/sessionController.js')
 
-// logic to test mongoose connection (connected to database) *
-// logic that will display in terminal if mongoose connection to atlas is successful
-mongoose.connection.on('connected', () => {
-    console.log('Mongoose is connected to Atlas!')
-});
-
-// logic that will display in terminal if mongoose to atlas encounters an error
-mongoose.connection.on('error', (err) => {
-    console.log('Mongoose connection error: ', err)
-});
-
-// logic that will display in terminal if mongoose to atlas is disconnected
-mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose disconnected.')
-});const express = require('express');
-
-// route for landing page
-
-// route for creating new user:
-app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res)  => {
+// // route for creating new user:
+app.post('/signup', userController.createUser, (req, res)  => {
     console.log('new user created')
     res.status(201).json(res.locals.userID);
 });
 
-// login and sign up logic
-app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
+// // login and sign up logic
+app.post('/login', userController.verifyUser, (req, res) => {
     if(res.locals.verifiedUser) {
     console.log('found user in db')
      return res.status(201).json(res.locals.userID)
@@ -48,7 +31,7 @@ app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, se
     else {res.status(401).send('problem with username and/or password')};
 });
 
- // middleware for validating drinks
+//  // middleware for validating drinks
  const drinkDataValidation = (req, res, next) => {
     // confirm required data
     const {drink, location} = req.body;
@@ -59,7 +42,7 @@ app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, se
       next();
     }
 
-    // route for adding a drink 
+//     // route for adding a drink 
 app.post('/addDrink', drinkDataValidation, (req, res) => {
 
     const newDrink = new drinkSchema(req.body);
@@ -75,7 +58,7 @@ app.post('/addDrink', drinkDataValidation, (req, res) => {
     });
   });
 
-  // route for deleting a drink:
+//   // route for deleting a drink:
 app.delete('/removeDrink/:id', (req, res) => {
     // extract the drink id
     const drinkId = req.params.id;
@@ -95,7 +78,7 @@ app.delete('/removeDrink/:id', (req, res) => {
       });
   });
 
-// Edit/Update a drink
+// // Edit/Update a drink
 app.put('/updateDrink/:id', (req, res) => {
   // Extract the drink ID from the request parameters
   const drinkId = req.params.id;
@@ -111,7 +94,7 @@ app.put('/updateDrink/:id', (req, res) => {
   // Define the update operation
   const update = { $set: { name: newName } };
 
-  // Use Mongoose to find the drink by ID and update it
+//   // Use Mongoose to find the drink by ID and update it
   drinkSchema.findByIdAndUpdate(drinkId, update, { new: true })
     .then((updatedDrink) => {
       if (updatedDrink) {
@@ -127,22 +110,20 @@ app.put('/updateDrink/:id', (req, res) => {
     });
 });
   
-//error handling
+// //error handling
 
-// server: 
+// // server: 
 app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
 
 module.exports = app;    
 
-                                                // * = working on now
+//                                                 // * = working on now
 
-// extras: 
+// // extras: 
 
-// bcrypt addition
+// // bcrypt addition
 
-// take in json obj and observe static files
-
-
+// // take in json obj and observe static files
 
 
 
@@ -160,7 +141,9 @@ module.exports = app;
 
 
 
-// extras: 
 
-// sessions/cookies for down the line
-// bcrypt addition
+
+// // extras: 
+
+// // sessions/cookies for down the line
+// // bcrypt addition

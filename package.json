@@ -11,6 +11,7 @@
   "dependencies": {
     "Babel": "^0.0.1",
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",

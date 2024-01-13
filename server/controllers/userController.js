@@ -2,7 +2,7 @@
 const { User } = require('../models/models.js');
 
 const userController = {};
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 //createUser - create and save a new User into the database.
 userController.createUser = (req, res, next) => {
