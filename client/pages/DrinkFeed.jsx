@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
 
+import { useState, useEffect } from 'react'
+import SingleDrink from '../components/SingleDrink.jsx';
 
 const DrinkFeed = () => {
     const [search,setSearch] = useState('');
@@ -9,6 +10,16 @@ const DrinkFeed = () => {
     const [ingredients, setIngredients] = useState('');
     const [thoughts, setThoughts] = useState('');
     const [recoveryThoughts, setRecoveryThoughts] = useState('');
+
+    const [drinkList,setDrinkList] = useState([])
+
+    useEffect(()=>{
+        fetch('http://localhost:9000/')
+    })
+
+
+
+
 
     const handleAddDrinkButton = () => {
         const drinkInfo = {
@@ -21,13 +32,30 @@ const DrinkFeed = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(drinkInfo)
+            body: JSON.stringify(drinkInfo) //may conflict w app.use(express.json()) in back end?
         };
 
-        // fetch info here - post drink to DB
+        fetch('http://localhost:9000/addDrink', requestOptions) //change DB URL as needed here
+            .then(response =>{
+                if (!response.ok){
+                    throw new Error (
+                        `HTTP error: res status -> ${response.status}`
+                    );
+                }
+                return response.json()
+            })
+            .then(data =>{
+                console.log('data inside fetch req -->', data);
+                setDrinkList(data);
+                console.log('drinkList inside fetch req ->', drinkList);
+            })
+            .catch( error =>{
+                console.log('error from with in fetch req of add drink');
+                console.error(error);
+            })
     }
+    
 
-    console.log(recoveryThoughts);
 
     return (
         <div className='feed-page-container' >
@@ -80,13 +108,16 @@ const DrinkFeed = () => {
 
                 </form>
 
-                    <button className='add-drink-button'>
+                    <button className='add-drink-button' onClick={handleAddDrinkButton}>
                         Add drink to database! But decorate me too!
                     </button>
                 
             </div>
             <div className='drink-feed'>
-                <h3>this will be drink feed...maybe a drink component here?  </h3>
+                <h2>This drink list comes from SingleDrink component</h2>
+                <SingleDrink/>
+                <SingleDrink/>
+                <SingleDrink/>
             </div>
         </div>
     )
