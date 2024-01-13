@@ -34,26 +34,27 @@ const DrinkFeed = () => {
         recoveryThoughts: 'none'
     }]);
 
-    //upon first render of page, this should fetch drink list from DB and set state for drinkList
-    // useEffect(()=>{
-    //     fetch(/* DB URL that gets all drinks */)
-    //         .then( response => {
-    //             if(!response.ok){
-    //                 throw new Error (
-    //                     `HTTP error : status -> ${response.status}`
-    //                 );
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(data => {
-    //             console.log('data with in useEffect f-req ->', data);
-    //             // setDrinkList(data);
-    //         })
-    //         .catch(error => {
-    //             console.log('error with in fetch req of useEffect @ DrinkFeed');
-    //             console.error(error);
-    //         })
-    // },[])
+    // upon first render of page, this should fetch drink list from DB and set state for drinkList
+    useEffect(()=>{
+        fetch('http://localhost:9000/drinks')
+            .then( response => {
+                if(!response.ok){
+                    throw new Error (
+                        `HTTP error : status -> ${response.status}`
+                    );
+                }
+                return response.json();
+            })
+            .then(data => {
+                // console.log('data with in useEffect f-req ->', data);
+                setDrinkList(data.drinks);
+                // console.log(drinkList);
+            })
+            .catch(error => {
+                console.log('error with in fetch req of useEffect @ DrinkFeed');
+                console.error(error);
+            })
+    },[])
 
 
     //func that will get relevant data from state, bundle it in body of POST req, and send to DB to make new drink document
@@ -80,6 +81,7 @@ const DrinkFeed = () => {
                     );
                 }
                 //logic if you want to do something after posting new drink, navigate somewhere? pop up that confirms added drink?
+                // Navigate('./DrinkFeed.jsx')
             })
             .catch(error => {
                 console.log('error from with in fetch req of add drink');
@@ -88,7 +90,7 @@ const DrinkFeed = () => {
     };
 
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
-    const testTable = sampleList.map(({ drink, location, ingredients, thoughts,recoveryThoughts },idx) => { //destrcuture data from drink object
+    const testTable = drinkList.map(({ drink, location, ingredients, thoughts,recoveryThoughts },idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', border: 'solid' }}>
@@ -99,6 +101,8 @@ const DrinkFeed = () => {
                     <li>Thoughts: {thoughts}</li>
                     <li>Recovery Thoughts: {recoveryThoughts}</li>
                 </ul>
+                <button style={{backgroundColor:'red'}}>delete</button>
+                <button>edit</button>
                 <div style={{border: 'solid', height: '120px', width: '120px', marginRight: '50px', marginTop: '15px', backgroundColor: 'white'}}
                 >
                     <p>Image here eventually</p>
