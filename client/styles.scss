@@ -1,1 +1,47 @@
 //stylin and profilin 
+
+//drink feed 
+.feed-page-container {
+    background-color: grey;
+    // border: solid;
+    height: 100vh;
+
+}
+.search-bar{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 20px;
+    // text-align: right;
+    height: 100px
+}
+
+.add-drink-container{
+    background-color: beige;
+    display: flex;
+    justify-content: space-between;
+
+    border: solid;
+    height: 350px;
+
+}
+
+.drink-form{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.add-drink-button{
+    height: 150px;
+    width: 150px;
+    margin-top: 100px;
+    margin-right: 40px;
+}
+
+.drink-feed{
+    background-color: lavender;
+    border: solid;
+    border-color: yellow;
+}
