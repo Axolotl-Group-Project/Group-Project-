@@ -23,13 +23,15 @@ drinkController.drinkDataValidation = async (req, res, next) => {
 
 
 drinkController.deleteDrink = async (req, res, next) => {
+  // const drinkName = req.params.name, then figure out how to reconfigure the await statement
   const drinkId = req.params.id;
   
   try {
-    const removedDrink = await Drink.findByIdAndDelete(drinkId).exec;
-    
+    // revise after changing the .id to .name
+    const removedDrink = await Drink.findByIdAndDelete(drinkId)
     if (removedDrink) {
-      res.status(204).json({ success: true, message: `Successfully removed drink from the database` });
+      console.log('we have entered the removedDrink conditional');
+      res.status(200).json({ success: true, message: `Successfully removed drink from the database` });
     } else {
       res.status(404).json({ success: false, message: `Drink with ID ${drinkId} was not found in the database` });
     }
