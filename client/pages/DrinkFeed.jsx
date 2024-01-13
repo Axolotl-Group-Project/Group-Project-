@@ -13,9 +13,26 @@ const DrinkFeed = () => {
 
     const [drinkList,setDrinkList] = useState([])
 
-    useEffect(()=>{
-        fetch('http://localhost:9000/')
-    })
+    //upon first render of page, this should fetch drink list from DB and set state for drinkList
+    // useEffect(()=>{
+    //     fetch(/* DB URL that gets all drinks */)
+    //         .then( response => {
+    //             if(!response.ok){
+    //                 throw new Error (
+    //                     `HTTP error : status -> ${response.status}`
+    //                 );
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(data => {
+    //             console.log('data with in useEffect f-req ->', data);
+    //             // setDrinkList(data);
+    //         })
+    //         .catch(error => {
+    //             console.log('error with in fetch req of useEffect @ DrinkFeed');
+    //             console.error(error);
+    //         })
+    // },[])
 
 
 
@@ -42,20 +59,24 @@ const DrinkFeed = () => {
                         `HTTP error: res status -> ${response.status}`
                     );
                 }
-                return response.json()
-            })
-            .then(data =>{
-                console.log('data inside fetch req -->', data);
-                setDrinkList(data);
-                console.log('drinkList inside fetch req ->', drinkList);
+                //logic if you want to do something after posting new drink, navigate somewhere? pop up that confirms added drink?
             })
             .catch( error =>{
                 console.log('error from with in fetch req of add drink');
                 console.error(error);
             })
-    }
-    
+    };
 
+    const drinkTable = drinkList.map(({drink,location,ingredients,thoughts,recoveryThoughts,_id}) =>{
+            <ul>
+                <li>{drink}</li>
+                <li>{location}</li>
+                <li>{ingredients}</li>
+                <li>{thoughts}</li>
+                <li>{recoveryThoughts}</li>
+                <li>{_id}</li>
+            </ul>
+    });
 
     return (
         <div className='feed-page-container' >
@@ -118,6 +139,12 @@ const DrinkFeed = () => {
                 <SingleDrink/>
                 <SingleDrink/>
                 <SingleDrink/>
+            </div>
+            <div style={{backgroundColor:'#40ebd7',height:'100vh'}}>
+                <h3>
+                    This list will come from drinkTable with in DrinkFeed component
+                    <drinkTable/>
+                </h3>
             </div>
         </div>
     )
