@@ -12,8 +12,13 @@ const Login = () => {
         console.log('Submitted:', { username, password });
       };
 
-    return(
-        <div>
+    const handleHaveAnAccountClick = () => {
+        //why doesn't this go anywhere?
+        navigate('../createUser')
+    }
+
+      return(
+        <div className='login-form'>
             <form>
                 <label>
                 Username:
@@ -34,6 +39,9 @@ const Login = () => {
                 </label>
                 <br />
                 <button type='submit' onClick={handleSubmit}>Login</button>
+                <br />
+                <label>Don't have an account?</label>
+                <button onClick={handleHaveAnAccountClick}>Create one!</button>
             </form>
         </div>
     )
