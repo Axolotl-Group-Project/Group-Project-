@@ -6,14 +6,21 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //Sarah rocks! 
         console.log('Submitted:', { username, password });
       };
 
-    return(
-        <div>
+    const handleCreateUser = () => {
+        navigate('../CreateUser')
+    }
+
+      return(
+        <div className='login-form'>
+            <h1>Login Page</h1>
             <form>
                 <label>
                 Username:
@@ -34,6 +41,9 @@ const Login = () => {
                 </label>
                 <br />
                 <button type='submit' onClick={handleSubmit}>Login</button>
+                <br />
+                <label>Don't have an account?</label>
+                <button onClick={handleCreateUser}>Create one!</button>
             </form>
         </div>
     )
