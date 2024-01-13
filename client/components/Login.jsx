@@ -6,14 +6,15 @@ import {Link, Route, Routes, useNavigate} from "react-router-dom";
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        //Sarah rocks! 
         console.log('Submitted:', { username, password });
       };
 
     const handleCreateUser = () => {
-        //why doesn't this go anywhere?
         navigate('../CreateUser')
     }
 

@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const newUser = async (username, password) => {
+    try {
+      const response = await axios.post('', {
+        username,
+        password,
+      });
+      console.log('user registered successfully:', response.data)
+    } catch (err) {
+      console.err('Error registering user:', err);
+    }
+  };
+
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitted:', { username, password });
+    await newUser(username, password);
   };
 
   const handleLoginClick = () => {
