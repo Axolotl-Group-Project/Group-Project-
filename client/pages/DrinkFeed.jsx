@@ -29,10 +29,6 @@ const DrinkFeed = () => {
 
     console.log(recoveryThoughts);
 
-
-
-
-
     return (
         <div className='feed-page-container' >
             <div className='search-bar'>
