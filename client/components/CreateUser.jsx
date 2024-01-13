@@ -18,9 +18,6 @@ const CreateUser = () => {
       console.err('Error registering user:', err);
     }
   };
-
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     await newUser(username, password);
@@ -71,6 +68,9 @@ const CreateUser = () => {
         </div>
     </div>
   )
+  }
+
+ 
 
 
 export default CreateUser;
