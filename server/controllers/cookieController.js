@@ -3,12 +3,12 @@ const User = require ('.//models/models.js');
 const cookieController = {};
 
 // //set cookie:
-// cookieController.setCookie = (req, res, next) => {
-//     const randomCookie = Math.floor(Math.random() * 100);
-//     res.cookie('rememberme', randomCookie, {httpOnly: true});
-//     //req.cookies; // what does this do?
-//     return next();
-// };
+cookieController.setCookie = (req, res, next) => {
+    const randomCookie = Math.floor(Math.random() * 100);
+    res.cookie('rememberme', randomCookie, {httpOnly: true});
+    //req.cookies; // what does this do?
+    return next();
+};
 
 // // set SSIDCookie - store userID in cookie:
 
