@@ -49,6 +49,8 @@ app.post('/addDrink', drinkController.drinkDataValidation, (req, res) => {
 
 // route for deleting a drink
 // change to 'removeDrink/:name'
+
+// update from drinkController to return the status on this server.js
 app.delete('/removeDrink/:id', drinkController.deleteDrink);
 
 // route for editing/updating drink
@@ -59,7 +61,7 @@ app.get('/drinks', drinkController.getAllDrinks, (req, res) => {
 });
 
   
-// // //error handling
+// // //error handling used when return next(error)
 app.use((err, req, res, next) => {
     const status = err.status || 500;
     const message = err.message || 'Internal Server Error';

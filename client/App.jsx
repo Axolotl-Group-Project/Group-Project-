@@ -26,6 +26,8 @@ const navigate = useNavigate();
     const handleCreateUserClick = () =>{
         navigate('/');
     }
+
+    
     return(
         <div className='container-content'>
         <div className='container'>

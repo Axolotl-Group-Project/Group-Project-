@@ -1,45 +1,30 @@
 import React from 'react';
 import '../scss/styles.scss';
-import { useState, useEffect } from 'react'
-// import SingleDrink from '../components/SingleDrink.jsx';
+import { useState, useEffect } from 'react';
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import SingleDrink from '../components/SingleDrink.jsx';
 
 const DrinkFeed = () => {
+    const navigate = useNavigate();
+
     const [search, setSearch] = useState('');
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
     const [ingredients, setIngredients] = useState('');
     const [thoughts, setThoughts] = useState('');
     const [recoveryThoughts, setRecoveryThoughts] = useState('');
+    const [drinkList, setDrinkList] = useState([]);
 
-    const [drinkList, setDrinkList] = useState([])
 
-    //for testig purposes while backend is still being set up, this is current drinkList 
-    const [sampleList, setSampleList] = useState([{
-        drink: 'beer',
-        location: 'here',
-        ingredients: 'brown stuff',
-        thoughts: 'it was good',
-        recoveryThoughts: 'not too long'
-    }, {
-        drink: 'wine',
-        location: 'there',
-        ingredients: 'red stuff',
-        thoughts: 'it was splendid ',
-        recoveryThoughts: 'not too long'
-    }, {
-        drink: 'water',
-        location: 'everywhere',
-        ingredients: 'clearstuff',
-        thoughts: 'the best',
-        recoveryThoughts: 'none'
-    }]);
+
+
 
     // upon first render of page, this should fetch drink list from DB and set state for drinkList
-    useEffect(()=>{
+    useEffect(() => {
         fetch('http://localhost:9000/drinks')
-            .then( response => {
-                if(!response.ok){
-                    throw new Error (
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(
                         `HTTP error : status -> ${response.status}`
                     );
                 }
@@ -54,11 +39,12 @@ const DrinkFeed = () => {
                 console.log('error with in fetch req of useEffect @ DrinkFeed');
                 console.error(error);
             })
-    },[])
+    }, [])
 
-
+    
     //func that will get relevant data from state, bundle it in body of POST req, and send to DB to make new drink document
     const handleAddDrinkButton = () => {
+        
         const drinkInfo = {
             drink,
             location,
@@ -72,25 +58,43 @@ const DrinkFeed = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(drinkInfo) //may conflict w app.use(express.json()) in back end?
         };
-
-        fetch('http://localhost:9000/addDrink', requestOptions) //change DB URL as needed here
+        
+        fetch('http://localhost:9000/addDrink', requestOptions) 
             .then(response => {
                 if (!response.ok) {
                     throw new Error(
                         `HTTP error: res status -> ${response.status}`
                     );
                 }
-                //logic if you want to do something after posting new drink, navigate somewhere? pop up that confirms added drink?
-                // Navigate('./DrinkFeed.jsx')
-            })
+                //nested fetch req to get updated list of drinks and have drinkTable component re-render
+                fetch('http://localhost:9000/drinks')
+                    .then(data =>  data.json())
+                    .then(data => setDrinkList(data.drinks))
+                })
             .catch(error => {
-                console.log('error from with in fetch req of add drink');
-                console.error(error);
+                        console.log('error from with in fetch req of add drink');
+                        console.error(error);
+                    })
+    }
+    const deleteButtonHandler = (id) => {
+        console.log('drink id ->', id);
+        fetch(`http://localhost:9000/removeDrink/${id}`, { method: 'DELETE' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP error: res status -> ${response.status}`
+                );
+            }
+            //nested fetch req to get updated list of drinks and have drinkTable component re-render
+            fetch('http://localhost:9000/drinks')
+                .then(data =>  data.json())
+                .then(data => setDrinkList(data.drinks))
             })
-    };
-
+            
+        // .then(fetch('http://localhost:9000/drinks'));
+    }
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
-    const testTable = drinkList.map(({ drink, location, ingredients, thoughts,recoveryThoughts },idx) => { //destrcuture data from drink object
+    const drinkTable = drinkList.map(({ drink, location, ingredients, thoughts, recoveryThoughts, _id }, idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
             <div key={idx} className='drink-item'>
@@ -101,7 +105,7 @@ const DrinkFeed = () => {
                     <li>Thoughts: {thoughts}</li>
                     <li>Recovery Thoughts: {recoveryThoughts}</li>
                 </ul>
-                <button className='delete-button'>delete</button>
+                <button onClick={() => deleteButtonHandler(_id)}>delete</button>
                 <button>edit</button>
                 <div className='image-container'
                 >
@@ -173,8 +177,19 @@ const DrinkFeed = () => {
                 </h3>
                 {testTable}
             </div>
+            {/* <div>
+                <SingleDrink drinks={drinkList} />
+            </div> */}
         </div>
     )
 }
 
 export default DrinkFeed
+
+//points to bring up ->
+//what does search bar do? filter down the current list thats showing in drink feed?
+//will edit button take us to another page or pop up a form to edit the drink? 
+//figure out how to clear text/form fields after hitting add button 
+//how to add pictures, need to edit DB model to include pic info/url for each pic? 
+
+//made SingleDrink to play around w having drinkFeed be it's own component and passing info to it as props, not sure of pros and cons at this time, will keep everything on DrinkFeed page for now
