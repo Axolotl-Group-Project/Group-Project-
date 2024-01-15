@@ -90,7 +90,7 @@ const DrinkFeed = () => {
     };
 
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
-    const testTable = drinkList.map(({ drink, location, ingredients, thoughts,recoveryThoughts },idx) => { //destrcuture data from drink object
+    const testTable = drinkList.map(({ drink, location, ingredients, thoughts,recoveryThoughts,_id },idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', border: 'solid' }}>
