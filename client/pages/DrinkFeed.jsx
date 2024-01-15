@@ -2,7 +2,7 @@ import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import SingleDrink from '../components/SingleDrink.jsx';
+
 
 const DrinkFeed = () => {
     const navigate = useNavigate();
@@ -175,7 +175,7 @@ const DrinkFeed = () => {
                 <h3>
                     What will you be having this evening?
                 </h3>
-                {testTable}
+                {drinkTable}
             </div>
             {/* <div>
                 <SingleDrink drinks={drinkList} />
