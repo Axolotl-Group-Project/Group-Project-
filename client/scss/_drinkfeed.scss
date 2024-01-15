@@ -1,0 +1,153 @@
+.search-bar{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    margin-right: 20px;
+    text-align: right;
+    height: 100px;
+    border-radius: 8px;
+}
+
+.image-container {
+    border: 1px solid #000;
+    height: 120px;
+    width: 120px;
+    margin-right: 50px;
+    margin-top: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+}
+
+.feed-page-container {
+    // background-color: grey;
+    // border: solid;
+    height: 100vh;
+    width: 100%;
+}
+
+.add-drink-container{
+    background-color: rgba(245, 245, 220, 0.75);
+    // background-color: rgb(37, 36, 36);
+    display: flex;
+    justify-content: space-between;
+    border: solid;
+    height: 350px;
+    width: 1200px;
+    // opacity: 0.75;
+    // width: calc(100% - 10%);
+    // margin: auto;
+    border-radius: 8px;
+}
+
+.drink-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    // background-color: yellow;
+    // background-color: rgb(37, 36, 36);
+    margin-left: 80px;
+    width: 200px;
+    border-radius: 8px;
+    gap: 10px;
+    line-height: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    // opacity: 0.9;
+}
+
+.drink-form label {
+    align-items: center;
+    justify-content: center;
+    opacity: unset;
+    color: #000;
+    // text-align: center;
+    opacity: 1;
+}
+
+.add-drink-button{
+    height: 150px;
+    width: 150px;
+    margin-top: 100px;
+    margin-right: 70px;
+    background-color: rgb(37, 36, 36);
+    border-radius: 8px;
+    color: antiquewhite;
+}
+
+.image-container {
+    border: 1px solid #000;
+    height: 120px;
+    width: 120px;
+    margin-right: 50px;
+    margin-top: 15px;
+    background-color: rgb(255, 255, 255);
+}
+
+.drink-item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #000;
+    background-color: blue;
+}
+
+.delete-button {
+    background-color: red;
+}
+
+.feed-table-title {
+    // display: flex;
+    background-color: beige;
+    height: 100vh;
+    border: 1px solid #000;
+    border-radius: 8px;
+    opacity: 0.75;
+}
+
+.feed-table-title h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // opacity: 0.75;
+}
+// .btn {  
+//     font-family: Arial, Helvetica, sans-serif;  
+//     text-transform: uppercase;
+// }  
+
+// .btn:hover .btn-slide-show-text1 {  
+//     margin-left: 65px;
+// }  
+
+// .btn-slide-bottom {  
+//     display: block;  
+//     cursor: pointer;  
+//     border: none;  
+//     text-align: center;  
+//     overflow: hidden;  
+//     font-weight: 700;  
+//     font-size: 15px;  
+//     background-color: rgb(51, 51, 51);  
+//     padding: 17px 45px;  
+//     transition: all 0.5s ease-in-out 0s;  
+//     color: rgb(255, 255, 255) !important;
+// }  
+    
+// .btn-slide-bottom span {  
+//     position: relative;  
+//     z-index: 1;
+// }  
+
+// .btn-slide-bottom::after {  
+//     content: "";  
+//     position: absolute;  
+//     left: 0px;  top: 0px;  height: 490%;  width: 140%;  transition: all 0.5s ease-in-out 0s;  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+// }  
+
+// .btn-slide-bottom:hover::after {  
+//     transform: translateX(-9%) translateY(-25%) rotate(45deg);
+// }  
+
+// .btn-slide-bottom--blue::after {  
+//     background: rgb(58, 134, 255);
+// }  

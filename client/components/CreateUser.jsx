@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import '../scss/styles.scss';
 import axios from 'axios';
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  //added state for confirm password input field
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
   const newUser = async (username, password) => {
@@ -23,7 +26,12 @@ const CreateUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // added logic for if passwords do not match
+    if (password === confirmPassword) {
     await newUser(username, password);
+    } else {
+      alert('Had too much to drink? Passwords do not match!');
+    }
   };
 
   const handleLoginClick = () => {
@@ -32,34 +40,36 @@ const CreateUser = () => {
 
   return (
     <div>
-        <h1>Let your Drink App journey begin!</h1>
+        <h1 className='landing-page-title'>Let your Drink App journey begin!</h1>
 
-        <div style={{display:'flex',border:'solid', justifyContent:'space-around'}}>
+        {/* <div className='sub-container'> */}
 
-        <div style={{border:'solid',height:'200px'}}>Let Drink App help you remember your best drinks!</div>
-        <div style={{border:'solid'}}>
+        <h2 className='description'>Log your deepest, darkest thoughts on drinks...</h2>
+        <div className='form-container'>
           <form>
-            <label>Create Account</label>
+            <h3>Create Account</h3>
             <br />
-            <label>Username</label>
+            <label>Username:</label>
             <input 
               type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               />
             <br />
-            <label>Password</label>
+            <label>Password:</label>
             <input
-              type='text'
+              type='password'
+              name='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               />
             <br />
-            <label>Confirm Password</label>
+            <label>Confirm Password:</label>
             <input 
-              type='text'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type='password'
+              name='password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               />
             <br />
             <button type='submit' onClick={handleSubmit}>Create Account</button>
@@ -69,7 +79,7 @@ const CreateUser = () => {
           </form>
         </div>
         </div>
-    </div>
+    // </div>
   )
   }
   

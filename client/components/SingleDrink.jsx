@@ -13,40 +13,16 @@ const SingleDrink = (props) => {
           <li>Drink: {drink}</li>
           <li>Location: {location}</li>
       </ul>
+      <div className='image-placeholder'>
+        <p> Image here</p>
       <button onClick={() => deleteButtonHandler(drink._id)}>delete</button>
       <button>edit</button>
-      <div style={{border: 'solid', height: '120px', width: '120px', marginRight: '50px', marginTop: '15px', backgroundColor: 'white'}}
-      >
+      <div >
           <p>Image here eventually</p>
       </div>
-  </div>
-    )
-  })
-
-  return (
-    <>
-    
-      {allDrinks}
-      <br></br>
-      
-    
-    </>
-    // <div style={{ display: 'flex', justifyContent: 'space-between', border: 'solid' }}>
-    //   <ul>
-    //     <li>Drink Name</li>
-    //     <li>Location</li>
-    //     <li>Ingredients</li>
-    //     <li>Thoughts</li>
-    //     <li>Recovery Thoughts</li>
-    //   </ul>
-    //   <div style={{
-    //     border: 'solid', height: '120px', width: '120px', marginRight: '50px', marginTop: '15px', backgroundColor: 'white'
-    //   }}>
-    //     <p> Image here</p>
-    //   </div>
-    // </div>
+    </div>
   )
-}
+})
 
 export default SingleDrink;
 //this component not needed after all 
