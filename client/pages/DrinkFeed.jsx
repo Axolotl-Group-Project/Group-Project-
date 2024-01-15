@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../scss/styles.scss';
 import { useState, useEffect } from 'react'
 // import SingleDrink from '../components/SingleDrink.jsx';
 
@@ -93,7 +93,7 @@ const DrinkFeed = () => {
     const testTable = drinkList.map(({ drink, location, ingredients, thoughts,recoveryThoughts },idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
-            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', border: 'solid' }}>
+            <div key={idx} className='drink-item'>
                 <ul >
                     <li>Drink: {drink}</li>
                     <li>Location: {location}</li>
@@ -101,9 +101,9 @@ const DrinkFeed = () => {
                     <li>Thoughts: {thoughts}</li>
                     <li>Recovery Thoughts: {recoveryThoughts}</li>
                 </ul>
-                <button style={{backgroundColor:'red'}}>delete</button>
+                <button className='delete-button'>delete</button>
                 <button>edit</button>
-                <div style={{border: 'solid', height: '120px', width: '120px', marginRight: '50px', marginTop: '15px', backgroundColor: 'white'}}
+                <div className='image-container'
                 >
                     <p>Image here eventually</p>
                 </div>
@@ -124,38 +124,38 @@ const DrinkFeed = () => {
 
                 <form className='drink-form'>
 
-                    <label>Drink Name</label>
+                    <label>Drink Name:</label>
                     <input
                         type='text'
                         placeholder='Mango Margarita'
                         onChange={(e) => setDrink(e.target.value)}
                     ></input>
 
-                    <label>Location</label>
+                    <label>Location:</label>
                     <input
                         type='text'
                         placeholder='Glorias Latin Cuisine'
                         onChange={(e) => setLocation(e.target.value)}
                     ></input>
 
-                    <label>Ingredients</label>
+                    <label>Ingredients:</label>
                     <input
                         type='text'
                         placeholder='Tequila!'
                         onChange={(e) => setIngredients(e.target.value)}
                     ></input>
 
-                    <label>Thoughts</label>
+                    <label>Thoughts:</label>
                     <input
                         type='text'
-                        placeholder='muy delicioso'
+                        placeholder='Muy Delicioso'
                         onChange={(e) => setThoughts(e.target.value)}
                     ></input>
 
-                    <label>Recovery Thoughts</label>
+                    <label>Recovery Thoughts:</label>
                     <input
                         type='text'
-                        placeholder='none'
+                        placeholder='No Hangover!'
                         onChange={(e) => setRecoveryThoughts(e.target.value)}
                     ></input>
 
@@ -167,10 +167,9 @@ const DrinkFeed = () => {
 
             </div>
             
-            <div style={{ backgroundColor: '#40ebd7', height: '100vh' }}>
+            <div className='feed-table-title'>
                 <h3>
-                    This list will come from drinkTable with in DrinkFeed component
-
+                    What will you be having this evening?
                 </h3>
                 {testTable}
             </div>

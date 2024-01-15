@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import '../scss/styles.scss';
 
 const SingleDrink = (props) => {
   console.log('props ->', props);
   // const drinkList =
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', border: 'solid' }}>
+    <div className='drink-container'>
       <ul>
         <li>Drink Name</li>
         <li>Location</li>
@@ -13,9 +14,7 @@ const SingleDrink = (props) => {
         <li>Thoughts</li>
         <li>Recovery Thoughts</li>
       </ul>
-      <div style={{
-        border: 'solid', height: '120px', width: '120px', marginRight: '50px', marginTop: '15px', backgroundColor: 'white'
-      }}>
+      <div className='image-placeholder'>
         <p> Image here</p>
       </div>
     </div>
