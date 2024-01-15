@@ -27,6 +27,8 @@ const navigate = useNavigate();
     const handleCreateUserClick = () =>{
         navigate('./createUser');
     }
+
+    
     return(
         <>
         <nav style={{display:'flex',justifyContent:'space-between',height:'40px',backgroundColor:'grey'}}>
