@@ -9,16 +9,22 @@
     "dev": "concurrently \"NODE_ENV=development webpack serve --open\" \"nodemon server/server.js\""
   },
   "dependencies": {
+    "axios": "^1.6.5",
     "Babel": "^0.0.1",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.4",
     "nodemon": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router": "^6.21.1"
+    "react-router": "^6.21.1",
+    "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
