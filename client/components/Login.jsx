@@ -11,7 +11,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Sarah rocks! 
         console.log('Submitted:', { username, password });
       };
 
