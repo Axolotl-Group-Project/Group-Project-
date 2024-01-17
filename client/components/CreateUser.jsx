@@ -12,13 +12,13 @@ const CreateUser = () => {
 
   const newUser = async (username, password) => {
     try {
-      const response = await axios.post('/createUser', {
+      const response = await axios.post('/CreateUser', {
         username,
         password,
       });
       console.log('user registered successfully:', response.data)
     } catch (err) {
-      console.err('Error registering user:', err);
+      console.log('Error registering user:', err);
     }
   };
 
@@ -30,6 +30,7 @@ const CreateUser = () => {
     if (password === confirmPassword) {
     await newUser(username, password);
     } else {
+      console.log('else in handleSubmit');
       alert('Had too much to drink? Passwords do not match!');
     }
   };
