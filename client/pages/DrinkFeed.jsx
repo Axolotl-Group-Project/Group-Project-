@@ -18,7 +18,6 @@ const DrinkFeed = () => {
 
 
 
-
     // upon first render of page, this should fetch drink list from DB and set state for drinkList
     useEffect(() => {
         fetch('http://localhost:9000/drinks')
@@ -48,9 +47,10 @@ const DrinkFeed = () => {
         const drinkInfo = {
             drink,
             location,
-            ingredients,
+            flavors,
+            rating,
             thoughts,
-            recoveryThoughts
+            recovery
         };
         //could add logic here to check that all drinkInfo fields have info, if not throw error 
         const requestOptions = {
@@ -92,6 +92,38 @@ const DrinkFeed = () => {
             })
             
         // .then(fetch('http://localhost:9000/drinks'));
+    }
+    //update drink button handler:
+    const updateButtonHandler = (id) => {
+        console.log('drink id ->', id);
+        const drinkInfo = {
+            drink,
+            location,
+            flavors,
+            rating,
+            thoughts,
+            recovery
+        };
+      
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(drinkInfo) 
+        };
+        fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP error: res status -> ${response.status}`
+                );
+            }
+            //nested fetch req to get updated list of drinks and have drinkTable component re-render
+            fetch('http://localhost:9000/drinks')
+                .then(data =>  data.json())
+                .then(data => setDrinkList(data.drinks))
+            })
+            
+        // .then(fetch('http://localhost:9000/drinks'));)
     }
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
     const drinkTable = drinkList.map(({ drink, location, ingredients, thoughts, recoveryThoughts, _id }, idx) => { //destrcuture data from drink object
@@ -166,7 +198,7 @@ const DrinkFeed = () => {
                 </form>
 
                 <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    Add drink to database! But decorate me too!
+                    bottoms up!
                 </button>
 
             </div>
