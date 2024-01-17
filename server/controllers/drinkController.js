@@ -4,14 +4,14 @@ const drinkController = {};
 
 //  // middleware for validating drinks
 drinkController.drinkDataValidation = async (req, res, next) => {
-  const { drink, location, rating, ingredients, thoughts, recovery } = req.body;
+  const { drink, location, rating, flavors, thoughts, recovery } = req.body;
   if (!drink || !location) {
     res.locals.drinkVerified = false;
     return next();
   } else {
     try {
       // ability to add additional fields related to the schema
-      const createdDrink = await Drink.create({ drink, location, rating, ingredients, thoughts, recovery });
+      const createdDrink = await Drink.create({ drink, location, rating, flavors, thoughts, recovery });
       res.locals.drinkVerified = true;
       res.locals.createdDrink = createdDrink;
       return next();
@@ -49,14 +49,14 @@ drinkController.updateDrink = async (req, res, next) => {
   const drinkId = req.params.id;
   const newDrinkName = req.body.drink;
   const newDrinkLocation = req.body.location;
-  const newDrinkIngredients = req.body.ingredients;
+  const newDrinkFlavors = req.body.flavors;
   const newDrinkThoughts = req.body.thoughts;
   const newDrinkRecovery = req.body.recovery;
   const newDrinkRating = req.body.rating;
 
   //declare new variables for diff fields to change as above
 
-  if (!newDrinkName && !newDrinkLocation && !newDrinkRecovery && !newDrinkThoughts) {
+  if (!newDrinkName && !newDrinkLocation && !newDrinkRecovery && !newDrinkThoughts && !newDrinkFlavors && !newDrinkRating) {
     return res.status(400).json({ success: false, message: 'Missing required information for drink' });
   }
   //const update = { $set: { drink: newDrinkName, location: newDrinkLocation } };
