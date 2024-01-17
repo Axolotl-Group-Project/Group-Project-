@@ -15,7 +15,7 @@ const Login = () => {
       };
 
     const handleCreateUser = () => {
-        navigate('../CreateUser')
+        navigate('/')
     }
 
       return(
