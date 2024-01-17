@@ -12,6 +12,7 @@ const CreateUser = () => {
 
   const newUser = async (username, password) => {
     try {
+      // made the C in create user capital. may need to change
       const response = await axios.post('/CreateUser', {
         username,
         password,
