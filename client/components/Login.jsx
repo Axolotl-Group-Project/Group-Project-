@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../scss/styles.scss';
 import { createRoot } from 'react-dom/client';
 // import { Route } from 'react-router';
 import {Link, Route, Routes, useNavigate} from "react-router-dom";
@@ -41,8 +42,8 @@ const Login = () => {
                 <br />
                 <button type='submit' onClick={handleSubmit}>Login</button>
                 <br />
-                <label>Don't have an account?</label>
-                <button onClick={handleCreateUser}>Create one!</button>
+                <h2>Don't have an account?</h2>
+                <button className='create-one-button' onClick={handleCreateUser}>Create one!</button>
             </form>
         </div>
     )

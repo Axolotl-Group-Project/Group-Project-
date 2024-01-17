@@ -1,0 +1,63 @@
+.login-form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    // position: absolute;
+    border-radius: 8px;
+    // top: 22%;
+    // right: 10%;
+    height: 500px;
+    width: 550px;
+    border: 1px solid #000;
+    background-color: rgb(37, 36, 36);
+    opacity: 0.95;
+    color: #f1e3e3;
+}
+
+.login-form h1 {
+    position: absolute;
+    top: 25%;
+}
+
+.login-form label, 
+.login-form input, 
+// .login-form .create-one-button
+.login-form button {
+    width: 100%; /* setting children to full width of form-container*/
+    max-width: 300px; /* setting max width of the form*/
+    box-sizing: border-box; /* including padding and border in the element's total width and height */
+    margin: 5px 0; /* added some margin to the top and bottom for spacing */
+    border-radius: 8px;
+}
+
+.login-form input, 
+// .login-form .create-one-button,
+.login-form button {
+    padding: 10px; /* added some padding inside the input fields and button */
+    border: 1px solid #ccc; /* added a border to the inputs for definition */
+}
+
+.login-form button
+// .login-form .create-one-button {
+    {
+    background-color: tan; 
+    color: white; 
+    border: none; 
+    cursor: pointer; /* changes cursor to pointer on hover */
+    border-radius: 8px;
+}
+
+.login-form h2 {
+    position: absolute;
+    top: 65%;
+}
+
+.create-one-button {
+    position: absolute;
+    top: 71%;
+    right: 40%;
+    // width: 800px;
+}

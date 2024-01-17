@@ -1,0 +1,121 @@
+// .container {
+//     display: grid;
+//     justify-content: center;
+//     align-items: center;
+//     padding-top: 20px;
+//     min-height: 100vh;
+//     width: 100%;
+//     // background-color: #00bfff97;
+//     background-image: url(https://images.unsplash.com/photo-1580807995622-0c064f158735?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+//     background-size: 560px;
+//     background-repeat: round;
+//     // background-position: center;
+// }
+
+.container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden; // this setting keeps us from being able to scroll down - have to adjust some other styling
+    // overflow-y: scroll;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(https://images.unsplash.com/photo-1704383014662-b6b1799d1bb8?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: 1400px;
+    background-repeat: none;
+    opacity: 0.75; /* Adjust the opacity as needed */
+    z-index: -1;
+}
+
+/* Add styles for your content that should be 'on top' of the background */
+.container-content {
+    position: relative;
+    z-index: 1;
+}
+
+
+// .sub-container {
+//     position: absolute;
+//     border: 1px solid #000;
+//     justify-content: space-around;
+// }
+
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    right: 60%;
+    border: 1px solid #000;
+    height: 400px;
+    width: 350px;
+    text-align: center;
+    background-color: rgb(37, 36, 36);
+    opacity: 0.95;
+    color: #f1e3e3;
+    border-radius: 8px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    position: absolute;
+    border-radius: 8px;
+    top: 22%;
+    right: 10%;
+    height: 500px;
+    width: 550px;
+    border: 1px solid #000;
+    background-color: rgb(37, 36, 36);
+    opacity: 0.95;
+    color: #f1e3e3;
+}
+.form-container h3 {
+    text-align: center;
+}
+
+.form-container label, 
+.form-container input, 
+.form-container button {
+    width: 100%; /* setting children to full width of form-container*/
+    max-width: 300px; /* setting max width of the form*/
+    box-sizing: border-box; /* including padding and border in the element's total width and height */
+    margin: 5px 0; /* added some margin to the top and bottom for spacing */
+    border-radius: 8px;
+}
+
+.form-container input, 
+.form-container button {
+    padding: 10px; /* added some padding inside the input fields and button */
+    border: 1px solid #ccc; /* added a border to the inputs for definition */
+}
+
+.form-container button {
+    background-color: tan; 
+    color: white; 
+    border: none; 
+    cursor: pointer; /* changes cursor to pointer on hover */
+    border-radius: 8px;
+}
+
+.landing-page-title {
+    position: absolute;
+    top: 5%;
+    right: 35%;
+}
