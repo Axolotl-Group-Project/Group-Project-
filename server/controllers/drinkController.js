@@ -4,14 +4,14 @@ const drinkController = {};
 
 //  // middleware for validating drinks
 drinkController.drinkDataValidation = async (req, res, next) => {
-  const { drink, location } = req.body;
+  const { drink, location, rating, flavors, thoughts, recovery } = req.body;
   if (!drink || !location) {
     res.locals.drinkVerified = false;
     return next();
   } else {
     try {
       // ability to add additional fields related to the schema
-      const createdDrink = await Drink.create({ drink, location });
+      const createdDrink = await Drink.create({ drink, location, rating, flavors, thoughts, recovery });
       res.locals.drinkVerified = true;
       res.locals.createdDrink = createdDrink;
       return next();
@@ -48,15 +48,28 @@ drinkController.updateDrink = async (req, res, next) => {
   // would need to do similar for each additional field in the model
   const drinkId = req.params.id;
   const newDrinkName = req.body.drink;
+  const newDrinkLocation = req.body.location;
+  const newDrinkFlavors = req.body.flavors;
+  const newDrinkThoughts = req.body.thoughts;
+  const newDrinkRecovery = req.body.recovery;
+  const newDrinkRating = req.body.rating;
 
-  if (!newDrinkName) {
-    return res.status(400).json({ success: false, message: 'New name must be provided for updating the drink' });
+  //declare new variables for diff fields to change as above
+
+  if (!newDrinkName && !newDrinkLocation && !newDrinkRecovery && !newDrinkThoughts && !newDrinkFlavors && !newDrinkRating) {
+    return res.status(400).json({ success: false, message: 'Missing required information for drink' });
   }
+  //const update = { $set: { drink: newDrinkName, location: newDrinkLocation } };
+  const updateFields = req.body;
 
-  const update = { $set: { drink: newDrinkName } };
 
   try {
-    const updatedDrink = await Drink.findByIdAndUpdate(drinkId, update, { new: true });
+    //const updatedDrink = await Drink.findByIdAndUpdate(drinkId, update, { new: true });
+    const updatedDrink = await Drink.findByIdAndUpdate(
+      drinkId,
+      { $set: updateFields },
+      { new: true }
+    );
     
     if (updatedDrink) {
       res.status(200).json({ success: true, message: `Successfully updated drink with ID ${drinkId}`, updatedDrink });
@@ -68,6 +81,8 @@ drinkController.updateDrink = async (req, res, next) => {
     return next(error);
   }
 };
+//repeat above code for each field that might change
+
 
 drinkController.getAllDrinks = async (req, res, next) => {
   try {

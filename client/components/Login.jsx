@@ -11,12 +11,11 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Sarah rocks! 
         console.log('Submitted:', { username, password });
       };
 
     const handleCreateUser = () => {
-        navigate('../CreateUser')
+        navigate('/')
     }
 
       return(
