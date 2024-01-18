@@ -2,9 +2,11 @@ import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
 
 
-const Update = () => {
+const Update = ({ state: {drink, location, flavors, rating, thoughts, recovery}}) => {
     const navigate = useNavigate();
 
     const [drink, setDrink] = useState('');
@@ -15,12 +17,7 @@ const Update = () => {
     const [recovery, setRecoveryThoughts] = useState('');
 
     // upon first render of page, this should fetch drink info from drink feed fill in fields for the drink
- 
-    // button handler to update drink:
-    const handleUpdateClick = () =>{
-        navigate('./update');
-    }
-    
+  
     //submit updated drink button handler:
     const submitUpdatedButtonHandler = (id) => {
         console.log('drink id ->', id);
@@ -56,46 +53,46 @@ const Update = () => {
             <div className='add-drink-container' >
 
                 <form className='drink-form'>
-                //populate placeholders with drinkInfo
+                {/* //populate placeholders with drinkInfo */}
                     <label>Drink Name:</label>
                     <input
                         type='text'
-                        placeholder='Mango Margarita'
+                        placeholder= {drink}
                         onChange={(e) => setDrink(e.target.value)}
                     ></input>
 
                     <label>Location:</label>
                     <input
                         type='text'
-                        placeholder='Glorias Latin Cuisine'
+                        placeholder= {location}
                         onChange={(e) => setLocation(e.target.value)}
                     ></input>
 
                     <label>Ingredients:</label>
                     <input
                         type='text'
-                        placeholder='Tequila!'
+                        placeholder= {flavors}
                         onChange={(e) => setIngredients(e.target.value)}
                     ></input>
 
                     <label>Thoughts:</label>
                     <input
                         type='text'
-                        placeholder='Muy Delicioso'
+                        placeholder= {thoughts}
                         onChange={(e) => setThoughts(e.target.value)}
                     ></input>
 
                     <label>Recovery Thoughts:</label>
                     <input
                         type='text'
-                        placeholder='No Hangover!'
+                        placeholder={recovery}
                         onChange={(e) => setRecoveryThoughts(e.target.value)}
                     ></input>
 
                 </form>
 
                 <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    bottoms up!
+                    bottoms up-date-!
                 </button>
 
             </div>
