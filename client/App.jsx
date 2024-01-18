@@ -44,8 +44,10 @@ const navigate = useNavigate();
         <Route path='/' element={<CreateUser />} />
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
-        <Route path='/' element={<CreateUser/>} />
+        {/* <Route path='/' element={<CreateUser/>} /> */}
         <Route path='/drinkFeed' element={<DrinkFeed/>} />
+        {/* <Route path='/signup' element={<CreateUser/>} /> */}
+
 
         </Routes>
         </div>

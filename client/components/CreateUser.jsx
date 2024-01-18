@@ -9,13 +9,16 @@ const CreateUser = () => {
   //added state for confirm password input field
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-
-  const newUser = async (username, password) => {
+// passing in an object below into newUser vvv
+  const newUser = async (username, password1) => {
+    // console.log('console.log',{"userName":username.username})
     try {
-      // made the C in create user capital. may need to change
-      const response = await axios.post('/CreateUser', {
-        username,
-        password,
+      //Updated the path to /signup
+      console.log('console.log',{'userName':username,'password':password1})
+      const response = await axios.post('/signup', {
+        // was playing around with userName':username.username, but the userName is always undefined
+        'userName':username,
+        'password':password1
       });
       console.log('user registered successfully:', response.data)
     } catch (err) {
@@ -23,6 +26,12 @@ const CreateUser = () => {
     }
   };
 
+  // to add:
+  
+  // once we create new user, redirect logged in to the drink feed
+  // don't need to verify user that was just created. They will already have a session
+
+  // refer to each user by sessionId?
   
 
   const handleSubmit = async (e) => {
@@ -37,7 +46,7 @@ const CreateUser = () => {
   };
 
   const handleLoginClick = () => {
-    navigate('../Login')
+    navigate('/Login')
   };
 
   return (
@@ -48,7 +57,8 @@ const CreateUser = () => {
 
         <h2 className='description'>Log your deepest, darkest thoughts on drinks...</h2>
         <div className='form-container'>
-          <form>
+          {/* added onSubmit={handleSubmit} to the form logic below*/}
+          <form onSubmit={handleSubmit}>
             <h3>Create Account</h3>
             <br />
             <label>Username:</label>
@@ -74,7 +84,7 @@ const CreateUser = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               />
             <br />
-            <button type='submit' onClick={handleSubmit}>Create Account</button>
+            <button type='submit'>Create Account</button>
             <br />
             <label>Already have an account?</label>
             <button onClick={handleLoginClick}>Login</button>
