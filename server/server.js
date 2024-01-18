@@ -1,6 +1,7 @@
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
-const { MONGO_URI, PORT } = process.env;
+const { DB_USERNAME,DB_PASSWORD, PORT } = process.env;
+const DB = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
@@ -77,7 +78,7 @@ app.use((err, req, res, next) => {
 
 // connect to DB, then connect to Port9000
 mongoose
-  .connect(MONGO_URI)
+  .connect(DB)
   .then(() => {
     console.log('connected to MongoDB');
     app.listen(PORT, () => {
