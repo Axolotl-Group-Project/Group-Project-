@@ -1,21 +1,23 @@
 import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect, Fragment } from 'react';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
-const Update = ({
-  state: { drink, location, flavors, rating, thoughts, recovery },
-}) => {
+
+const Update = () => {
   //const navigate = useNavigate();
+  const location = useLocation();
+  const { drink, location: drinkLocation, flavors, rating, thoughts, recovery } = location.state || {};
 
   const [isOpen, setIsOpen] = useState(true);
-  const [updatedDrink, setUpdatedDrink] = useState('');
-  const [updatedLocation, setUpdatedLocation] = useState('');
-  const [updatedRating, setUpdatedRating] = useState('');
-  const [updatedFlavors, setUpdatedIngredients] = useState('');
-  const [updatedThoughts, setUpdatedThoughts] = useState('');
-  const [updatedRecovery, setUpdatedRecovery] = useState('');
+  const [updatedDrink, setUpdatedDrink] = useState(drink || '');
+  const [updatedLocation, setUpdatedLocation] = useState(drinkLocation || '');
+  const [updatedRating, setUpdatedRating] = useState(rating || '');
+  const [updatedFlavors, setUpdatedIngredients] = useState(flavors || '');
+  const [updatedThoughts, setUpdatedThoughts] = useState(thoughts || '');
+  const [updatedRecovery, setUpdatedRecovery] = useState(recovery || '');
+ 
 
   // upon first render of page, this should fetch drink info from drink feed fill in fields for the drink
 
@@ -74,35 +76,35 @@ const Update = ({
                 <label>Drink Name:</label>
                 <input
                   type='text'
-                  placeholder={drink}
+                  value={drink}
                   onChange={(e) => setUpdatedDrink(e.target.value)}
                 ></input>
 
                 <label>Location:</label>
                 <input
                   type='text'
-                  placeholder={location}
+                  value={location}
                   onChange={(e) => setUpdatedLocation(e.target.value)}
                 ></input>
 
                 <label>Ingredients:</label>
                 <input
                   type='text'
-                  placeholder={flavors}
+                  value={flavors}
                   onChange={(e) => setUpdatedIngredients(e.target.value)}
                 ></input>
 
                 <label>Thoughts:</label>
                 <input
                   type='text'
-                  placeholder={thoughts}
+                  value={thoughts}
                   onChange={(e) => setUpdatedThoughts(e.target.value)}
                 ></input>
 
                 <label>Recovery Thoughts:</label>
                 <input
                   type='text'
-                  placeholder={recovery}
+                  value={recovery}
                   onChange={(e) => setUpdatedRecovery(e.target.value)}
                 ></input>
               </form>
