@@ -52,7 +52,7 @@ app.post('/signup',
   // sessionController.startSession,
   (req, res) => {
     console.log('new user created')
-    res.status(201).json("userID ->", res.locals.userID);
+    res.status(201).json(res.locals.userID);
   });
 
 // // login and sign up logic
