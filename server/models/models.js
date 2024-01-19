@@ -37,10 +37,11 @@ const drinkSchema = new Schema({
     recovery: String,
     thoughts: String,
 });
+
 //model for 'drinks' collection:
 const Drink = mongoose.model('drink', drinkSchema);
 
-//schema for users:
+
 const userSchema = new Schema({
    userName: {type: String, required: true},
    password:  {type: String, required: true},
