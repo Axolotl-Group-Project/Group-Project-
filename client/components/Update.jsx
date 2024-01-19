@@ -1,109 +1,127 @@
 import React from 'react';
 import '../scss/styles.scss';
-import { useState, useEffect } from 'react';
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { useState, useEffect, Fragment } from 'react';
+import { Link, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Dialog, Transition } from '@headlessui/react';
 
 
 const Update = () => {
-    const navigate = useNavigate();
+  
+  const [isOpen, setIsOpen] = useState(true);
+  const location = useLocation();
+  const { drink, location: drinkLocation, flavors, rating, thoughts, recovery, _id } = location.state || {};
 
-    const [drink, setDrink] = useState('');
-    const [location, setLocation] = useState('');
-    const [rating, setRating] = useState('');
-    const [flavors, setIngredients] = useState('');
-    const [thoughts, setThoughts] = useState('');
-    const [recovery, setRecoveryThoughts] = useState('');
-
-    // upon first render of page, this should fetch drink info from drink feed fill in fields for the drink
+  
+  const [updatedDrink, setUpdatedDrink] = useState(drink || '');
+  const [updatedLocation, setUpdatedLocation] = useState(drinkLocation || '');
+  const [updatedRating, setUpdatedRating] = useState(rating || '');
+  const [updatedFlavors, setUpdatedIngredients] = useState(flavors || '');
+  const [updatedThoughts, setUpdatedThoughts] = useState(thoughts || '');
+  const [updatedRecovery, setUpdatedRecovery] = useState(recovery || '');
  
-    // button handler to update drink:
-    const handleUpdateClick = () =>{
-        navigate('./update');
-    }
-    
-    //submit updated drink button handler:
-    const submitUpdatedButtonHandler = (id) => {
-        console.log('drink id ->', id);
-        const drinkInfo = {
-            drink,
-            location,
-            flavors,
-            rating,
-            thoughts,
-            recovery
-        };
-      
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(drinkInfo) 
-        };
-        fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(
-                    `HTTP error: res status -> ${response.status}`
-                );
-            }
-            //if successful, redirect to drink feed
-            navigate('/drinkFeed')
-            })
-            
-    }
-   
-    return (
-        <div className='feed-page-container' >
-            <div className='add-drink-container' >
 
-                <form className='drink-form'>
-                //populate placeholders with drinkInfo
-                    <label>Drink Name:</label>
-                    <input
-                        type='text'
-                        placeholder='Mango Margarita'
-                        onChange={(e) => setDrink(e.target.value)}
-                    ></input>
+  // upon first render of page, this should fetch drink info from drink feed fill in fields for the drink
 
-                    <label>Location:</label>
-                    <input
-                        type='text'
-                        placeholder='Glorias Latin Cuisine'
-                        onChange={(e) => setLocation(e.target.value)}
-                    ></input>
+  //submit updated drink button handler:
+  const submitUpdatedButtonHandler = (id) => {
+    console.log('drink id ->', id);
+    const drinkInfo = {
+      drink: updatedDrink,
+      location: updatedLocation,
+      flavors: updatedFlavors,
+      rating: updatedRating,
+      thoughts: updatedThoughts,
+      recovery: updatedRecovery,
+    };
 
-                    <label>Ingredients:</label>
-                    <input
-                        type='text'
-                        placeholder='Tequila!'
-                        onChange={(e) => setIngredients(e.target.value)}
-                    ></input>
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(drinkInfo),
+    };
 
-                    <label>Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder='Muy Delicioso'
-                        onChange={(e) => setThoughts(e.target.value)}
-                    ></input>
+    fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' }).then(
+      (response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: res status -> ${response.status}`);
+        }
+        //if successful, redirect to drink feed
+        // navigate('/drinkFeed')
+        setIsOpen(false);
+      }
+    );
+  };
 
-                    <label>Recovery Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder='No Hangover!'
-                        onChange={(e) => setRecoveryThoughts(e.target.value)}
-                    ></input>
+  return (
+    <Transition
+      show={isOpen}
+      enter='transition duration-100 ease-out'
+      enterFrom='transform scale-95 opacity-0'
+      enterTo='transform scale-100 opacity-100'
+      leave='transition duration-75 ease-out'
+      leaveFrom='transform scale-100 opacity-100'
+      leaveTo='transform scale-95 opacity-0'
+      as={Fragment}
+    >
+      <Dialog onClose={() => setIsOpen(false)}>
+        <Dialog.Panel>
+          <Dialog.Title>update my drink</Dialog.Title>
+          <Dialog.Description>
+            update the information about my drink
+          </Dialog.Description>
 
-                </form>
+          <div className='feed-page-container'>
+            <div className='add-drink-container'>
+              <form className='drink-form'>
+                {/* //populate placeholders with drinkInfo */}
+                <label>Drink Name:</label>
+                <input
+                  type='text'
+                  value={drink}
+                  onChange={(e) => setUpdatedDrink(e.target.value)}
+                ></input>
 
-                <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    bottoms up!
-                </button>
+                <label>Location:</label>
+                <input
+                  type='text'
+                  value={location}
+                  onChange={(e) => setUpdatedLocation(e.target.value)}
+                ></input>
 
+                <label>Ingredients:</label>
+                <input
+                  type='text'
+                  value={flavors}
+                  onChange={(e) => setUpdatedIngredients(e.target.value)}
+                ></input>
+
+                <label>Thoughts:</label>
+                <input
+                  type='text'
+                  value={thoughts}
+                  onChange={(e) => setUpdatedThoughts(e.target.value)}
+                ></input>
+
+                <label>Recovery Thoughts:</label>
+                <input
+                  type='text'
+                  value={recovery}
+                  onChange={(e) => setUpdatedRecovery(e.target.value)}
+                ></input>
+              </form>
+
+              <button
+                className='add-drink-button'
+                onClick={submitUpdatedButtonHandler}
+              >
+                bottoms up-date-!
+              </button>
             </div>
-            
-        </div>
-    )
-}
+          </div>
+        </Dialog.Panel>
+      </Dialog>
+    </Transition>
+  );
+};
 
 export default Update;
-
-//will edit button take us to another page or pop up a form to edit the drink? 
