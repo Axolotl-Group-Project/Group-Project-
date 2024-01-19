@@ -10,11 +10,11 @@ const DrinkFeed = () => {
     const [search, setSearch] = useState('');
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
-    const [ingredients, setIngredients] = useState('');
+    const [rating, setRating] = useState('');
+    const [flavors, setIngredients] = useState('');
     const [thoughts, setThoughts] = useState('');
-    const [recoveryThoughts, setRecoveryThoughts] = useState('');
+    const [recovery, setRecoveryThoughts] = useState('');
     const [drinkList, setDrinkList] = useState([]);
-
 
 
 
@@ -48,9 +48,10 @@ const DrinkFeed = () => {
         const drinkInfo = {
             drink,
             location,
-            ingredients,
+            flavors,
+            rating,
             thoughts,
-            recoveryThoughts
+            recovery
         };
         //could add logic here to check that all drinkInfo fields have info, if not throw error 
         const requestOptions = {
@@ -93,20 +94,33 @@ const DrinkFeed = () => {
             
         // .then(fetch('http://localhost:9000/drinks'));
     }
+    // button handler to update drink, passing in state of drink (ref: https://reactrouter.com/en/main/hooks/use-navigate):
+    const handleUpdateClick = () =>{
+        navigate('/update', { state: {
+            drink,
+            location,
+            flavors,
+            rating,
+            thoughts,
+            recovery
+        }});
+    }
+   
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
-    const drinkTable = drinkList.map(({ drink, location, ingredients, thoughts, recoveryThoughts, _id }, idx) => { //destrcuture data from drink object
+    const drinkTable = drinkList.map(({ drink, location, rating, flavors, thoughts, recovery, _id }, idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
             <div key={idx} className='drink-item'>
                 <ul >
                     <li>Drink: {drink}</li>
                     <li>Location: {location}</li>
-                    <li>Ingredients: {ingredients}</li>
+                    <li>Rating: {rating}</li>
+                    <li>Ingredients: {flavors}</li>
                     <li>Thoughts: {thoughts}</li>
-                    <li>Recovery Thoughts: {recoveryThoughts}</li>
+                    <li>Recovery Thoughts: {recovery}</li>
                 </ul>
                 <button onClick={() => deleteButtonHandler(_id)}>delete</button>
-                <button>edit</button>
+                <button onClick={() => handleUpdateClick}>edit</button>
                 <div className='image-container'
                 >
                     <p>Image here eventually</p>
@@ -166,7 +180,7 @@ const DrinkFeed = () => {
                 </form>
 
                 <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    Add drink to database! But decorate me too!
+                    bottoms up!
                 </button>
 
             </div>

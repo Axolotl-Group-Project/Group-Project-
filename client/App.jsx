@@ -8,6 +8,7 @@ import Test from './components/Test.jsx';
 import DrinkFeed from './pages/DrinkFeed.jsx';
 import Login from './components/Login.jsx';
 import CreateUser from './components/CreateUser.jsx';
+
 import user from './images/user.png';
 import home from './images/envelope.png';
 import edit from './images/edit.png';
@@ -80,6 +81,7 @@ const triggerRef = useRef(null);
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/drinkFeed' element={<DrinkFeed/>} />
+        {/* <Route path='/update' element={<Update/>} */}
 
         </Routes>
             </div>
