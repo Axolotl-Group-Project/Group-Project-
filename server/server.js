@@ -1,11 +1,12 @@
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
-const { DB_USERNAME,DB_PASSWORD, PORT } = process.env;
-const DB = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
+// const { DB_USERNAME,DB_PASSWORD, PORT } = process.env;
+// const DB = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const PORT = process.env.PORT || 9000;
 
 app.use(express.json());
 
@@ -13,6 +14,28 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser())
 app.use(cors());
 
+const {DB_USERNAME, DB_PASSWORD} = process.env;
+const MONGO_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
+
+//connect to db:
+mongoose.connect(MONGO_URI, {dbName: 'axolotl'})
+    .then(() => console.log('Connected to Mongo DB - axolotl.'))
+    .catch(err => console.log(err));
+
+// logic that will display in terminal if mongoose connection to atlas is successful
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose is connected to Atlas!')
+});
+
+// logic that will display in terminal if mongoose to atlas encounters an error
+mongoose.connection.on('error', (err) => {
+    console.log('Mongoose connection error: ', err)
+});
+
+// logic that will display in terminal if mongoose to atlas is disconnected
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose disconnected.')
+});
 
 // // import controllers:
 const userController = require('./controllers/userController.js');

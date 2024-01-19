@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 const {DB_USERNAME, DB_PASSWORD} = process.env;
 const MONGO_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
-// connect to db:
-mongoose.connect(MONGO_URI, {dbName: 'axolotl'})
-    .then(() => console.log('Connected to Mongo DB.'))
-    .catch(err => console.log(err));
+
+// //connect to db:
+// mongoose.connect(MONGO_URI, {dbName: 'axolotl'})
+//     .then(() => console.log('Connected to Mongo DB.'))
+//     .catch(err => console.log(err));
+
 
 // logic that will display in terminal if mongoose connection to atlas is successful
 mongoose.connection.on('connected', () => {
