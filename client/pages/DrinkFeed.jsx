@@ -36,8 +36,7 @@ const DrinkFeed = () => {
                 // console.log(drinkList);
             })
             .catch(error => {
-                console.log('error with in fetch req of useEffect @ DrinkFeed');
-                console.error(error);
+                console.error('Error fetching drinks:', error);
             })
     }, [])
 
