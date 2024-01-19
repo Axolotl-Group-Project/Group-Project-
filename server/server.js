@@ -74,30 +74,30 @@ app.use((err, req, res, next) => {
 });
 
 
-// app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
+app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
 
 // connect to DB, then connect to Port9000
-mongoose
-  .connect(DB)
-  .then(() => {
-    console.log('connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`IT'S OVER ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error.message, 'Error connecting to MongoDB');
-  });
+// mongoose
+//   .connect(DB)
+//   .then(() => {
+//     console.log('connected to MongoDB');
+//     app.listen(PORT, () => {
+//       console.log(`IT'S OVER ${PORT}`);
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(error.message, 'Error connecting to MongoDB');
+//   });
 
-// logic that will display in terminal if mongoose to atlas encounters an error
-mongoose.connection.on('error', (err) => {
-  console.log('Mongoose connection error: ', err)
-});
+// // logic that will display in terminal if mongoose to atlas encounters an error
+// mongoose.connection.on('error', (err) => {
+//   console.log('Mongoose connection error: ', err)
+// });
 
-// logic that will display in terminal if mongoose to atlas is disconnected
-mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected.')
-});
+// // logic that will display in terminal if mongoose to atlas is disconnected
+// mongoose.connection.on('disconnected', () => {
+//   console.log('Mongoose disconnected.')
+// });
 
 module.exports = app;
 

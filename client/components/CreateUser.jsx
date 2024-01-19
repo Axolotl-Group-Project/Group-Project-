@@ -14,8 +14,8 @@ const CreateUser = () => {
     // console.log('console.log',{"userName":username.username})
     try {
       //Updated the path to /signup
-      console.log('console.log',{'userName':username,'password':password1})
-      const response = await axios.post('/signup', {
+      console.log('console.log in CreateUser',{'userName':username,'password':password1})
+      const response = await axios.post('http://localhost:9000/signup', {
         // was playing around with userName':username.username, but the userName is always undefined
         'userName':username,
         'password':password1
