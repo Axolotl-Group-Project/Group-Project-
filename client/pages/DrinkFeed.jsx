@@ -103,7 +103,7 @@ const DrinkFeed = () => {
             flavors,
             rating,
             thoughts,
-            recovery
+            recovery,
         }});
     }
    
