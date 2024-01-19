@@ -11,7 +11,6 @@ const CreateUser = () => {
   const navigate = useNavigate();
 // passing in an object below into newUser vvv
   const newUser = async (username, password1) => {
-    // console.log('console.log',{"userName":username.username})
     try {
       //Updated the path to /signup
       console.log('console.log in CreateUser',{'userName':username,'password':password1})

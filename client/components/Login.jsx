@@ -11,7 +11,9 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Submitted:', { username, password });
+        // console.log('Submitted:', { username, password });
+            console.log('session is still being worked on')
+// This is the section currently being worked on to add login logic to create a session once logged in
       };
 
     const handleCreateUser = () => {
