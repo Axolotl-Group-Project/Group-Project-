@@ -81,6 +81,7 @@ const triggerRef = useRef(null);
         <Route path='/' element={<CreateUser />} />
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
+        {/* <Route path='/' element={<CreateUser/>} /> */}
         <Route path='/drinkFeed' element={<DrinkFeed/>} />
         <Route path='/update' element={<Update/>} />
 

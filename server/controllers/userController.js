@@ -7,6 +7,7 @@ const saltRounds = 10;
 
 //createUser - create and save a new User into the database.
 userController.createUser = async (req, res, next) => {
+    console.log('inside create user middleware')
     // destructure the usenamne and password from the request body
     const { userName, password } = req.body;
   
