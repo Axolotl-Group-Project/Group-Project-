@@ -6,11 +6,12 @@ import { Dialog, Transition } from '@headlessui/react';
 
 
 const Update = () => {
-  //const navigate = useNavigate();
-  const location = useLocation();
-  const { drink, location: drinkLocation, flavors, rating, thoughts, recovery } = location.state || {};
-
+  
   const [isOpen, setIsOpen] = useState(true);
+  const location = useLocation();
+  const { drink, location: drinkLocation, flavors, rating, thoughts, recovery, _id } = location.state || {};
+
+  
   const [updatedDrink, setUpdatedDrink] = useState(drink || '');
   const [updatedLocation, setUpdatedLocation] = useState(drinkLocation || '');
   const [updatedRating, setUpdatedRating] = useState(rating || '');
