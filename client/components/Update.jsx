@@ -2,13 +2,14 @@ import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import { useState, Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
 
 const Update = ({ state: {drink, location, flavors, rating, thoughts, recovery}}) => {
-    const navigate = useNavigate();
-
+    //const navigate = useNavigate();
+    
+    const [isOpen, setIsOpen] = useState(true);
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
     const [rating, setRating] = useState('');
@@ -35,6 +36,7 @@ const Update = ({ state: {drink, location, flavors, rating, thoughts, recovery}}
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(drinkInfo) 
         };
+
         fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' })
         .then(response => {
             if (!response.ok) {
@@ -43,64 +45,88 @@ const Update = ({ state: {drink, location, flavors, rating, thoughts, recovery}}
                 );
             }
             //if successful, redirect to drink feed
-            navigate('/drinkFeed')
+            // navigate('/drinkFeed')
+            setIsOpen(false)
             })
             
     }
-   
+
     return (
-        <div className='feed-page-container' >
-            <div className='add-drink-container' >
+        <Transition
+        show={isOpen}
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
+        as={Fragment}
+        >
+        
+            <Dialog onClose={() => setIsOpen(false)}>
+            <Dialog.Panel>
+                <Dialog.Title>update my drink</Dialog.Title>
+                <Dialog.Description>
+                update the information about my drink
+                </Dialog.Description>
+        
+                <div className='feed-page-container' >
+                <div className='add-drink-container' >
 
-                <form className='drink-form'>
-                {/* //populate placeholders with drinkInfo */}
-                    <label>Drink Name:</label>
-                    <input
-                        type='text'
-                        placeholder= {drink}
-                        onChange={(e) => setDrink(e.target.value)}
-                    ></input>
+                    <form className='drink-form'>
+                    {/* //populate placeholders with drinkInfo */}
+                        <label>Drink Name:</label>
+                        <input
+                            type='text'
+                            placeholder= {drink}
+                            onChange={(e) => setDrink(e.target.value)}
+                        ></input>
 
-                    <label>Location:</label>
-                    <input
-                        type='text'
-                        placeholder= {location}
-                        onChange={(e) => setLocation(e.target.value)}
-                    ></input>
+                        <label>Location:</label>
+                        <input
+                            type='text'
+                            placeholder= {location}
+                            onChange={(e) => setLocation(e.target.value)}
+                        ></input>
 
-                    <label>Ingredients:</label>
-                    <input
-                        type='text'
-                        placeholder= {flavors}
-                        onChange={(e) => setIngredients(e.target.value)}
-                    ></input>
+                        <label>Ingredients:</label>
+                        <input
+                            type='text'
+                            placeholder= {flavors}
+                            onChange={(e) => setIngredients(e.target.value)}
+                        ></input>
 
-                    <label>Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder= {thoughts}
-                        onChange={(e) => setThoughts(e.target.value)}
-                    ></input>
+                        <label>Thoughts:</label>
+                        <input
+                            type='text'
+                            placeholder= {thoughts}
+                            onChange={(e) => setThoughts(e.target.value)}
+                        ></input>
 
-                    <label>Recovery Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder={recovery}
-                        onChange={(e) => setRecoveryThoughts(e.target.value)}
-                    ></input>
+                        <label>Recovery Thoughts:</label>
+                        <input
+                            type='text'
+                            placeholder={recovery}
+                            onChange={(e) => setRecoveryThoughts(e.target.value)}
+                        ></input>
 
-                </form>
+                    </form>
 
-                <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    bottoms up-date-!
-                </button>
+                    <button className='add-drink-button' onClick={submitUpdatedButtonHandler}>
+                        bottoms up-date-!
+                    </button>
 
+                </div>
+                
             </div>
-            
-        </div>
-    )
+        
+                <button onClick={() => setIsOpen(false)}>Deactivate</button>
+                <button onClick={() => setIsOpen(false)}>Cancel</button>
+            </Dialog.Panel>
+            </Dialog>
+        </Transition>
+      )    
 }
 
 export default Update;
 
-//will edit button take us to another page or pop up a form to edit the drink? 
