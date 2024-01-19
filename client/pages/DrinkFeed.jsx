@@ -10,9 +10,10 @@ const DrinkFeed = () => {
     const [search, setSearch] = useState('');
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
-    const [ingredients, setIngredients] = useState('');
+    const [rating, setRating] = useState('');
+    const [flavors, setIngredients] = useState('');
     const [thoughts, setThoughts] = useState('');
-    const [recoveryThoughts, setRecoveryThoughts] = useState('');
+    const [recovery, setRecoveryThoughts] = useState('');
     const [drinkList, setDrinkList] = useState([]);
 
 
@@ -93,52 +94,33 @@ const DrinkFeed = () => {
             
         // .then(fetch('http://localhost:9000/drinks'));
     }
-    //update drink button handler:
-    const updateButtonHandler = (id) => {
-        console.log('drink id ->', id);
-        const drinkInfo = {
+    // button handler to update drink, passing in state of drink (ref: https://reactrouter.com/en/main/hooks/use-navigate):
+    const handleUpdateClick = () =>{
+        navigate('/update', { state: {
             drink,
             location,
             flavors,
             rating,
             thoughts,
             recovery
-        };
-      
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(drinkInfo) 
-        };
-        fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(
-                    `HTTP error: res status -> ${response.status}`
-                );
-            }
-            //nested fetch req to get updated list of drinks and have drinkTable component re-render
-            fetch('http://localhost:9000/drinks')
-                .then(data =>  data.json())
-                .then(data => setDrinkList(data.drinks))
-            })
-            
-        // .then(fetch('http://localhost:9000/drinks'));)
+        }});
     }
+   
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
-    const drinkTable = drinkList.map(({ drink, location, ingredients, thoughts, recoveryThoughts, _id }, idx) => { //destrcuture data from drink object
+    const drinkTable = drinkList.map(({ drink, location, rating, flavors, thoughts, recovery, _id }, idx) => { //destrcuture data from drink object
         return (
             //change idx to relevant_id given by DB 
             <div key={idx} className='drink-item'>
                 <ul >
                     <li>Drink: {drink}</li>
                     <li>Location: {location}</li>
-                    <li>Ingredients: {ingredients}</li>
+                    <li>Rating: {rating}</li>
+                    <li>Ingredients: {flavors}</li>
                     <li>Thoughts: {thoughts}</li>
-                    <li>Recovery Thoughts: {recoveryThoughts}</li>
+                    <li>Recovery Thoughts: {recovery}</li>
                 </ul>
                 <button onClick={() => deleteButtonHandler(_id)}>delete</button>
-                <button>edit</button>
+                <button onClick={() => handleUpdateClick}>edit</button>
                 <div className='image-container'
                 >
                     <p>Image here eventually</p>

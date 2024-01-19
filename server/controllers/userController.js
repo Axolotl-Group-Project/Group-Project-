@@ -49,6 +49,18 @@ userController.verifyUser = async (req, res, next) => {
   }
 };
        
-
+//middleware for getAllUsers
+userController.getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find({}); // Fetch all drinks
+        res.locals.users = users; // Store drinks in res.locals for potential further use
+        next(); 
+        // Proceed to next middleware (or send response if this is the last middleware)
+    } catch (error) {
+        // Pass the error to the error-handling middleware
+        console.log('error getting all users from getAllUsers');
+      next(error);
+    };
+  };
 
   module.exports = userController; 

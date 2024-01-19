@@ -1,77 +1,105 @@
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
-
-const express = require ('express');
+const { DB_USERNAME,DB_PASSWORD, PORT } = process.env;
+const DB = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
+const mongoose = require('mongoose');
+const express = require('express');
 const app = express();
 const cors = require('cors');
 
 app.use(express.json());
 
-//const cookieParser = require('cookie-parser');
-//app.use(cookieParser())
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
 app.use(cors());
-const PORT = 9000;
+
 
 // // import controllers:
 const userController = require('./controllers/userController.js');
-//const cookieController = require ('./controllers/cookieController.js');
-// const sessionController = require ('./controllers/sessionController.js')
+// const cookieController = require('./controllers/cookieController.js');
+const sessionController = require('./controllers/sessionController.js');
 const drinkController = require('./controllers/drinkController.js');
 
 
 // // route for creating new user:
-app.post('/signup', userController.createUser, (req, res)  => {
+//add setSSIDCookie and startSession middlewares
+app.post('/signup',
+  userController.createUser,
+  // cookieController.setSSIDCookie,
+  // sessionController.startSession,
+  (req, res) => {
     console.log('new user created')
-    res.status(201).json(res.locals.userID);
-});
-
-// // login and sign up logic
-app.post('/login', userController.verifyUser, (req, res) => {
-    if(res.locals.userVerified) {
-    console.log('found user in db');
-     return res.status(201).json(res.locals.userID);
-    }
-    else {res.status(401).send('problem with username and/or password')};
-});
-
-
-// //     // route for adding a drink 
-app.post('/addDrink', drinkController.drinkDataValidation, (req, res) => {
-
-    if(res.locals.drinkVerified){
-      res.status(201).json({ success: true, message: 'Drink was added to the database' });
-    }
-    else{
-      console.log('Error adding drink from drinkDataValidation:', error);
-      res.status(400).json({ success: false, message: 'Unable to add drink to the database' });;
-    }
+    res.status(201).json("userID ->", res.locals.userID);
   });
 
-// route for deleting a drink
-// change to 'removeDrink/:name'
+// // login and sign up logic
+//add setSSIDCookie and startSession middlewares after verifyUser
+app.post('/login',
+  userController.verifyUser,
+  // cookieController.serSSIDCookie,
+  // sessionController.startSession,
+  (req, res) => {
+    if (res.locals.userVerified) {
+      // console.log('found user in db');
+      return res.status(201).json(res.locals.userID);
+    }
+    else { res.status(401).send('problem with username and/or password') };
+  });
 
-// update from drinkController to return the status on this server.js
+//need route for getAllUsers
+app.get('/users', userController.getAllUsers, (req, res) => {
+  res.status(200).json({ success: true, users: res.locals.users });
+});
+
+//_________Routes for drinks___________
+//eventually use a router to have all drinks route logic come from drinkController
+//route for adding drink to drinkList
+app.post('/addDrink', drinkController.drinkDataValidation);
+
+// route for deleting a drink
 app.delete('/removeDrink/:id', drinkController.deleteDrink);
 
 // route for editing/updating drink
 app.put('/updateDrink/:id', drinkController.updateDrink);
 
-app.get('/drinks', drinkController.getAllDrinks, (req, res) => {
-    res.status(200).json({ success: true, drinks: res.locals.drinks });
-});
+//route to get drinks list 
+app.get('/drinks', drinkController.getAllDrinks);
 
-  
+
 // // //error handling used when return next(error)
 app.use((err, req, res, next) => {
-    const status = err.status || 500;
-    const message = err.message || 'Internal Server Error';
-    res.status(status).json({ success: false, message });
+  const status = err.status || 500;
+  const message = err.message || 'Internal Server Error';
+  res.status(status).json({ success: false, message });
 });
 
-// // // server: 
-app.listen(PORT, ()=>{ console.log(`Listening on port ${PORT}...`); });
 
-module.exports = app;    
+// app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
+
+// connect to DB, then connect to Port9000
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log('connected to MongoDB');
+    app.listen(PORT, () => {
+      console.log(`IT'S OVER ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error.message, 'Error connecting to MongoDB');
+  });
+
+// logic that will display in terminal if mongoose to atlas encounters an error
+mongoose.connection.on('error', (err) => {
+  console.log('Mongoose connection error: ', err)
+});
+
+// logic that will display in terminal if mongoose to atlas is disconnected
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose disconnected.')
+});
+
+module.exports = app;
 
 
 // // // bcrypt addition
