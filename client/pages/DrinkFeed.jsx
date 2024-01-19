@@ -97,14 +97,23 @@ const DrinkFeed = () => {
     
     // button handler to update drink, passing in state of drink (ref: https://reactrouter.com/en/main/hooks/use-navigate):
     const handleUpdateClick = () =>{
-        navigate('/update', { state: {
+        navigate('/update', { state: {key: {
             drink,
             location,
             flavors,
             rating,
             thoughts,
             recovery,
-        }});
+            }}});
+
+        // navigate('/update', { state: {
+        //     drink,
+        //     location,
+        //     flavors,
+        //     rating,
+        //     thoughts,
+        //     recovery,
+        // }});
     }
    
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
@@ -121,7 +130,7 @@ const DrinkFeed = () => {
                     <li>Recovery Thoughts: {recovery}</li>
                 </ul>
                 <button onClick={() => deleteButtonHandler(_id)}>delete</button>
-                <button onClick={() => handleUpdateClick}>edit</button>
+                <button onClick={() => handleUpdateClick(drink, location, flavors, rating, thoughts, recovery)}>edit</button>
                 <div className='image-container'
                 >
                     <p>Image here eventually</p>
