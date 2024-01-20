@@ -2,11 +2,10 @@ import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-
+import Update from '../components/Update.jsx';
 
 const DrinkFeed = () => {
     const navigate = useNavigate();
-
     const [search, setSearch] = useState('');
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
@@ -16,7 +15,14 @@ const DrinkFeed = () => {
     const [recovery, setRecoveryThoughts] = useState('');
     const [drinkList, setDrinkList] = useState([]);
 
-
+    const drinkInfo = {
+        drink,
+        location,
+        flavors,
+        rating,
+        thoughts,
+        recovery,
+    };
 
 
     // upon first render of page, this should fetch drink list from DB and set state for drinkList
@@ -44,14 +50,14 @@ const DrinkFeed = () => {
     //func that will get relevant data from state, bundle it in body of POST req, and send to DB to make new drink document
     const handleAddDrinkButton = () => {
         
-        const drinkInfo = {
-            drink,
-            location,
-            flavors,
-            rating,
-            thoughts,
-            recovery
-        };
+        // const drinkInfo = {
+        //     drink,
+        //     location,
+        //     flavors,
+        //     rating,
+        //     thoughts,
+        //     recovery
+        // };
         //could add logic here to check that all drinkInfo fields have info, if not throw error 
         const requestOptions = {
             method: 'POST',
@@ -93,16 +99,40 @@ const DrinkFeed = () => {
             
         // .then(fetch('http://localhost:9000/drinks'));
     }
+    
     // button handler to update drink, passing in state of drink (ref: https://reactrouter.com/en/main/hooks/use-navigate):
-    const handleUpdateClick = () =>{
-        navigate('/update', { state: {
-            drink,
-            location,
-            flavors,
-            rating,
-            thoughts,
-            recovery
-        }});
+    const handleUpdateClick = (drinkInfo) =>{
+        // navigate('/update', { state: {key: {
+        //     drink,
+        //     location,
+        //     flavors,
+        //     rating,
+        //     thoughts,
+        //     recovery,
+        //     }}});
+
+        // // navigate('/update', { state: {
+        //     drink,
+        //     location,
+        //     flavors,
+        //     rating,
+        //     thoughts,
+        //     recovery,
+        // }});
+        // const drinkInfo = {
+        //     drink,
+        //     location,
+        //     flavors,
+        //     rating,
+        //     thoughts,
+        //     recovery,
+        //     _id,
+        //};
+        return (
+            <div>
+                <Update open={drinkInfo}/>
+            </div>
+        )
     }
    
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
@@ -119,7 +149,7 @@ const DrinkFeed = () => {
                     <li>Recovery Thoughts: {recovery}</li>
                 </ul>
                 <button onClick={() => deleteButtonHandler(_id)}>delete</button>
-                <button onClick={() => handleUpdateClick}>edit</button>
+                <button onClick={() => handleUpdateClick({drinkInfo})}>edit</button>
                 <div className='image-container'
                 >
                     <p>Image here eventually</p>
