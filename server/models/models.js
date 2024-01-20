@@ -38,6 +38,7 @@ const drinkSchema = new Schema({
     flavors: String,
     recovery: String,
     thoughts: String,
+    user: { type: Schema.Types.ObjectId, ref: 'user' } //reference to the user who created drink 
 });
 
 //model for 'drinks' collection:
