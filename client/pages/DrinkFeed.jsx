@@ -373,8 +373,12 @@ const deleteButtonHandler = (_id) => {
                     return drinkList.map((drink) => (
                       <div key={drink._id} className="virtual-drink" onClick={() => openModal(drink)}>
                         {drink.drink}
+                        <div className="feedImage">
+                          {/* <img src="../images/Martini.png" alt="image from images" /> */}
+                        </div>
                         <button onClick={() => deleteButtonHandler(drink._id)}>Delete</button>
                         <button onClick={() => handleUpdateClick(drink)}>Edit</button>
+
                       </div>
                     ));
                   };

@@ -106,8 +106,10 @@
     background-color: #a67c52;
     border-radius: 10px;
 }
-
+// add a virtual martini picture when a drink renders
+// possibly adjust this to fit everything
 .virtual-drink {
+    margin-top: 5px;
     flex: 0 0 auto; 
     padding: 10px;
     border: 2px solid #000;
@@ -122,6 +124,18 @@
 .virtual-drink:hover {
     transform: translateY(-3px);
 }
+
+// format for the drink picture being added into the div
+.feedImage{
+    background-image: url("../images/Martini.png");
+    background-size: contain;
+    background-position: center;     
+    background-repeat: no-repeat;
+    margin:auto;
+    width:50%;
+    height:50%;
+}
+
 
 /* Style for the details modal overlay */
 .modal-overlay {
@@ -143,6 +157,7 @@
     max-width: 500px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
 
 // ** END OF BAR SHELF SCSS *** //
 
