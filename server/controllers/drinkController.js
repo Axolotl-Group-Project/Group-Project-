@@ -7,13 +7,15 @@ const { Drink } = require('../models/models.js');
 const drinkController = {};
 
 drinkController.drinkDataValidation = async (req, res, next) => {
-  const { drink, location, rating, flavors, thoughts, recovery } = req.body;
+  //pass in userID on each drink created
+  const { drink, location, rating, flavors, thoughts, recovery, userID } = req.body;
   try {
     if (!drink || !location) {
      return res.status(400).send({ message: 'missing some required data' })
     }
     // ability to add additional fields related to the schema
-    const createdDrink = await Drink.create({ drink, location, rating, flavors, thoughts, recovery });
+    //each drink will have userID prop 
+    const createdDrink = await Drink.create({ drink, location, rating, flavors, thoughts, recovery, user:userID });
     return res.status(201).send(`${createdDrink.drink} added to list!`)
   } catch (error) {
     console.log(err.message,' Error from with in drinkValidation route');
