@@ -3,9 +3,13 @@ import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Update from '../components/Update.jsx';
+import { Dialog } from '@headlessui/react';
 
 const DrinkFeed = () => {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [drinkList, setDrinkList] = useState([]); // This will hold the list of drinks
+    const [selectedDrink, setSelectedDrink] = useState(null); // This will hold the currently selected drink for the details modal
     const [search, setSearch] = useState('');
     const [drink, setDrink] = useState('');
     const [location, setLocation] = useState('');
@@ -13,7 +17,6 @@ const DrinkFeed = () => {
     const [flavors, setIngredients] = useState('');
     const [thoughts, setThoughts] = useState('');
     const [recovery, setRecoveryThoughts] = useState('');
-    const [drinkList, setDrinkList] = useState([]);
 
     const drinkInfo = {
         drink,
@@ -24,6 +27,11 @@ const DrinkFeed = () => {
         recovery,
     };
 
+    // Function to open the modal with selected drink details
+    const openModal = (drink) => {
+        setSelectedDrink(drink);
+        setIsModalOpen(true);
+    };
 
     // upon first render of page, this should fetch drink list from DB and set state for drinkList
     useEffect(() => {
@@ -46,18 +54,47 @@ const DrinkFeed = () => {
             })
     }, [])
 
+    const renderVirtualDrinks = () => {
+        return drinkList.map((drink) => (
+          <div key={drink._id} className="virtual-drink" onClick={() => openDetailsModal(drink)}>
+            {drink.name} {/* Or however you want to display the name of the drink */}
+          </div>
+        ));
+    };
     
+    // Render the details modal
+  const renderDrinkDetailsModal = () => {
+    if (!selectedDrink) return null;
+
+
+ // Function to close the modal
+ const closeDetailsModal = () => {
+    setIsModalOpen(false);
+    setSelectedDrink(null);
+};
+
+    return (
+        
+      <Dialog open={Boolean(selectedDrink)} onClose={closeDetailsModal} className="details-modal">
+        <Dialog.Overlay className="overlay" />
+        
+        <Dialog.Panel className="panel">
+          <Dialog.Title>{selectedDrink.name}</Dialog.Title>
+          {/* Display the details of the selected drink */}
+          {/* You will render the details here */}
+          <p>Rating: {selectedDrink.rating}</p>
+          <p>Ingredients: {selectedDrink.flavors}</p>
+          <p>Thoughts: {selectedDrink.thoughts}</p>
+          <p>Recovery Thoughts: {selectedDrink.recovery}</p>
+          <button onClick={closeDetailsModal}>Close</button>
+        </Dialog.Panel>
+      </Dialog>
+    );
+  };
+
+
     //func that will get relevant data from state, bundle it in body of POST req, and send to DB to make new drink document
     const handleAddDrinkButton = () => {
-        
-        // const drinkInfo = {
-        //     drink,
-        //     location,
-        //     flavors,
-        //     rating,
-        //     thoughts,
-        //     recovery
-        // };
         //could add logic here to check that all drinkInfo fields have info, if not throw error 
         const requestOptions = {
             method: 'POST',
@@ -102,37 +139,7 @@ const DrinkFeed = () => {
     
     // button handler to update drink, passing in state of drink (ref: https://reactrouter.com/en/main/hooks/use-navigate):
     const handleUpdateClick = (drinkInfo) =>{
-        // navigate('/update', { state: {key: {
-        //     drink,
-        //     location,
-        //     flavors,
-        //     rating,
-        //     thoughts,
-        //     recovery,
-        //     }}});
-
-        // // navigate('/update', { state: {
-        //     drink,
-        //     location,
-        //     flavors,
-        //     rating,
-        //     thoughts,
-        //     recovery,
-        // }});
-        // const drinkInfo = {
-        //     drink,
-        //     location,
-        //     flavors,
-        //     rating,
-        //     thoughts,
-        //     recovery,
-        //     _id,
-        //};
-        return (
-            <div>
-                <Update open={drinkInfo}/>
-            </div>
-        )
+        navigate('/update', { state: { ...drinkInfo } });
     }
    
     //can change sampleList to drinkList once fetch reqs work, make sure to add _id into drink list/component
@@ -148,8 +155,8 @@ const DrinkFeed = () => {
                     <li>Thoughts: {thoughts}</li>
                     <li>Recovery Thoughts: {recovery}</li>
                 </ul>
-                <button onClick={() => deleteButtonHandler(_id)}>delete</button>
-                <button onClick={() => handleUpdateClick({drinkInfo})}>edit</button>
+                <button onClick={() => deleteButtonHandler(_id)}>Delete</button>
+                <button onClick={() => handleUpdateClick({ drink, location, rating, flavors, thoughts, recovery, _id })}>Edit</button>
                 <div className='image-container'
                 >
                     <p>Image here eventually</p>
@@ -157,81 +164,90 @@ const DrinkFeed = () => {
             </div>
         );
     });
+
     return (
-        <div className='feed-page-container' >
-            <div className='search-bar'>
-                <label>Search Bar goes brrrrr</label>
-                <input
-                    type='text'
-                    placeholder='Search here'
-                    onChange={(e) => setSearch(e.target.value)}
-                ></input>
+        <div className='drink-feed-container'>
+        <div className='feed-page-container'>
+          <div className='search-bar'>
+            <label>Search Bar goes brrrrr</label>
+            <input
+              type='text'
+              placeholder='Search here'
+              onChange={(e) => setSearch(e.target.value)}
+            ></input>
+          </div>
+      
+          <div className='add-drink-container'>
+            <form className='drink-form'>
+              <label>Drink Name:</label>
+              <input
+                type='text'
+                placeholder='Mango Margarita'
+                onChange={(e) => setDrink(e.target.value)}
+              ></input>
+      
+              <label>Location:</label>
+              <input
+                type='text'
+                placeholder='Glorias Latin Cuisine'
+                onChange={(e) => setLocation(e.target.value)}
+              ></input>
+      
+              <label>Ingredients:</label>
+              <input
+                type='text'
+                placeholder='Tequila!'
+                onChange={(e) => setIngredients(e.target.value)}
+              ></input>
+      
+              <label>Thoughts:</label>
+              <input
+                type='text'
+                placeholder='Muy Delicioso'
+                onChange={(e) => setThoughts(e.target.value)}
+              ></input>
+      
+              <label>Recovery Thoughts:</label>
+              <input
+                type='text'
+                placeholder='No Hangover!'
+                onChange={(e) => setRecoveryThoughts(e.target.value)}
+              ></input>
+            </form>
+      
+            <button className='add-drink-button' onClick={handleAddDrinkButton}>
+              Bottoms up!
+            </button>
+          </div>
+      
+          <div className='feed-table-title'>
+            <h3>What will you be having this evening?</h3>
+            {drinkTable}
+          </div>
+      
+          {/* Map over the drinks and render them */}
+          {drinkList.map((drink) => (
+            <div key={drink._id} className='drink-item'>
+              {/* ... drink info */}
+              <button onClick={() => openModal(drink)}>Details</button>
             </div>
-            <div className='add-drink-container' >
-
-                <form className='drink-form'>
-
-                    <label>Drink Name:</label>
-                    <input
-                        type='text'
-                        placeholder='Mango Margarita'
-                        onChange={(e) => setDrink(e.target.value)}
-                    ></input>
-
-                    <label>Location:</label>
-                    <input
-                        type='text'
-                        placeholder='Glorias Latin Cuisine'
-                        onChange={(e) => setLocation(e.target.value)}
-                    ></input>
-
-                    <label>Ingredients:</label>
-                    <input
-                        type='text'
-                        placeholder='Tequila!'
-                        onChange={(e) => setIngredients(e.target.value)}
-                    ></input>
-
-                    <label>Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder='Muy Delicioso'
-                        onChange={(e) => setThoughts(e.target.value)}
-                    ></input>
-
-                    <label>Recovery Thoughts:</label>
-                    <input
-                        type='text'
-                        placeholder='No Hangover!'
-                        onChange={(e) => setRecoveryThoughts(e.target.value)}
-                    ></input>
-
-                </form>
-
-                <button className='add-drink-button' onClick={handleAddDrinkButton}>
-                    bottoms up!
-                </button>
-
-            </div>
-            
-            <div className='feed-table-title'>
-                <h3>
-                    What will you be having this evening?
-                </h3>
-                {drinkTable}
-            </div>
-            {/* <div>
-                <SingleDrink drinks={drinkList} />
-            </div> */}
+          ))}
+        <div className="virtual-drink-bar">
+        {renderVirtualDrinks()}
         </div>
-    )
-}
+          {/* Render the Drink Details Modal */}
+          {renderDrinkDetailsModal()}
+        </div>
+        </div>
+
+        
+      );
+};
 
 export default DrinkFeed
 
 //points to bring up ->
 //what does search bar do? filter down the current list thats showing in drink feed?
-//will edit button take us to another page or pop up a form to edit the drink? 
 //figure out how to clear text/form fields after hitting add button 
 //how to add pictures, need to edit DB model to include pic info/url for each pic? 
 

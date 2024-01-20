@@ -9,6 +9,7 @@ const Update = () => {
   
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
   const { drink, location: drinkLocation, flavors, rating, thoughts, recovery, _id } = location.state || {};
 
   
@@ -40,16 +41,19 @@ const Update = () => {
       body: JSON.stringify(drinkInfo),
     };
 
-    fetch(`'http://localhost:9000/updateDrink/${id}`, { method: 'PUT' }).then(
-      (response) => {
+    fetch(`http://localhost:9000/updateDrink/${id}`, requestOptions)
+    .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error: res status -> ${response.status}`);
         }
-        //if successful, redirect to drink feed
-        // navigate('/drinkFeed')
-        setIsOpen(false);
-      }
-    );
+        return response.json();
+      })
+      .then(() => {
+        navigate('/drinkFeed'); // Navigate to drink feed after successful update
+      })
+      .catch((error) => {
+        console.error('Failed to update the drink:', error);
+      });
   };
 
   return (
@@ -65,9 +69,9 @@ const Update = () => {
     >
       <Dialog onClose={() => setIsOpen(false)}>
         <Dialog.Panel>
-          <Dialog.Title>update my drink</Dialog.Title>
+          <Dialog.Title>Update My Drink</Dialog.Title>
           <Dialog.Description>
-            update the information about my drink
+            What changes would you like to make?
           </Dialog.Description>
 
           <div className='feed-page-container'>
@@ -77,44 +81,44 @@ const Update = () => {
                 <label>Drink Name:</label>
                 <input
                   type='text'
-                  value={drink}
+                  value={updatedDrink}
                   onChange={(e) => setUpdatedDrink(e.target.value)}
                 ></input>
 
                 <label>Location:</label>
                 <input
                   type='text'
-                  value={location}
+                  value={updatedLocation}
                   onChange={(e) => setUpdatedLocation(e.target.value)}
                 ></input>
 
                 <label>Ingredients:</label>
                 <input
                   type='text'
-                  value={flavors}
+                  value={updatedFlavors}
                   onChange={(e) => setUpdatedIngredients(e.target.value)}
                 ></input>
 
                 <label>Thoughts:</label>
                 <input
                   type='text'
-                  value={thoughts}
+                  value={updatedThoughts}
                   onChange={(e) => setUpdatedThoughts(e.target.value)}
                 ></input>
 
                 <label>Recovery Thoughts:</label>
                 <input
                   type='text'
-                  value={recovery}
+                  value={updatedRecovery}
                   onChange={(e) => setUpdatedRecovery(e.target.value)}
                 ></input>
               </form>
 
               <button
                 className='add-drink-button'
-                onClick={submitUpdatedButtonHandler}
+                onClick={() => submitUpdatedButtonHandler(_id)}
               >
-                bottoms up-date-!
+                Bottoms up-dated!
               </button>
             </div>
           </div>
