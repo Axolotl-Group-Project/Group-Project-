@@ -1,3 +1,5 @@
+// Logic in general needs to be completed so that session can be set up for user
+
 const { Session } = require ('../models/models.js');
 
 const sessionController = {};
