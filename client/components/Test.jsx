@@ -1,3 +1,5 @@
+// purely a test page for react-router testing. Do as you wish with this.
+
 import React from 'react'
 
 const Test = () => {

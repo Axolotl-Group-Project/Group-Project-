@@ -77,7 +77,6 @@ const Update = () => {
           <div className='feed-page-container'>
             <div className='add-drink-container'>
               <form className='drink-form'>
-                {/* //populate placeholders with drinkInfo */}
                 <label>Drink Name:</label>
                 <input
                   type='text'

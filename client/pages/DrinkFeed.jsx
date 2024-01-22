@@ -3,8 +3,7 @@
 import React from 'react';
 import '../scss/styles.scss';
 import { useState, useEffect } from 'react';
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import Update from '../components/Update.jsx';
+import { useNavigate } from "react-router-dom";
 import { Dialog } from '@headlessui/react';
 
 const DrinkFeed = () => {
@@ -236,6 +235,8 @@ const DrinkFeed = () => {
 export default DrinkFeed
 
 // *** END OF ORIGINAL CODE *** //
+
+// The rest of the code is intended for use with our 2.0 visual display. A physical drink will be placed on a "shelf" once a user adds a drink. The drink will have the name around it, to look at more information, the user would have to click the drink and a display will pop-up which shows further details of the drink
 
 // *** start of whack bar shelf *** //
 

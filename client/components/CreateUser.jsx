@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import '../scss/styles.scss';
 import axios from 'axios';
 
@@ -25,14 +25,6 @@ const CreateUser = () => {
     }
   };
 
-  // to add:
-  
-  // once we create new user, redirect logged in to the drink feed
-  // don't need to verify user that was just created. They will already have a session
-
-  // refer to each user by sessionId?
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     // added logic for if passwords do not match
@@ -51,9 +43,6 @@ const CreateUser = () => {
   return (
     <div>
         <h1 className='landing-page-title'>Let your Drink App journey begin!</h1>
-
-        {/* <div className='sub-container'> */}
-
         <h2 className='description'>Log your deepest, darkest thoughts on drinks...</h2>
         <div className='form-container'>
           {/* added onSubmit={handleSubmit} to the form logic below*/}
@@ -89,8 +78,7 @@ const CreateUser = () => {
             <button onClick={handleLoginClick}>Login</button>
           </form>
         </div>
-        </div>
-    // </div>
+    </div>
   )
   };
 

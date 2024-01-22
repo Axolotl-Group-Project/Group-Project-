@@ -24,24 +24,24 @@ const [open, setOpen] = useState(false);
 const dropdownRef = useRef(null);
 const triggerRef = useRef(null);
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+useEffect(() => {
+    function handleClickOutside(event) {
+      if (open && dropdownRef.current && !dropdownRef.current.contains(event.target) &&
           triggerRef.current && !triggerRef.current.contains(event.target)) {
-         setOpen(false);
+        setOpen(false);
       }
     }
-    
-
+  
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
-        return () => {
+    return () => {
       // Unbind the event listener on cleanup
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, []);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
         setOpen(!open);
     };
 
@@ -74,7 +74,7 @@ const triggerRef = useRef(null);
         </nav> */}
         <div className='menu-container'>
             <div className='menu-trigger' ref={triggerRef} onClick={toggleDropdown}>
-                <img src={portrait}></img>
+                <img src={portrait} alt='Menu'></img>
         
        <Routes>
         
@@ -110,7 +110,8 @@ const triggerRef = useRef(null);
 
 function DropdownItem(props) {
     const navigate = useNavigate();
-    const handleItemClick = () => {
+    const handleItemClick = (e) => {
+        e.stopPropagation();
         navigate(props.path);
     }
     return(

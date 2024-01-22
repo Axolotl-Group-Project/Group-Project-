@@ -1,23 +1,19 @@
 // import for environmental variables - .config => when you type it autofills
 require('dotenv').config();
-// const { DB_USERNAME,DB_PASSWORD, PORT } = process.env;
-// const DB = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 9000;
-
-app.use(express.json());
-
 const cookieParser = require('cookie-parser');
-app.use(cookieParser())
-app.use(cors());
-
 const {DB_USERNAME, DB_PASSWORD} = process.env;
 const MONGO_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@axolotl.xogzh1q.mongodb.net/?retryWrites=true&w=majority`;
 
-//connect to db:
+app.use(express.json());
+app.use(cookieParser())
+app.use(cors());
+
+//connect to db, need to reference db name or else a default one will be created:
 mongoose.connect(MONGO_URI, {dbName: 'axolotl'})
     .then(() => console.log('Connected to Mongo DB - axolotl.'))
     .catch(err => console.log(err));
@@ -39,7 +35,7 @@ mongoose.connection.on('disconnected', () => {
 
 // // import controllers:
 const userController = require('./controllers/userController.js');
-// const cookieController = require('./controllers/cookieController.js');
+// const cookieController = require('./controllers/cookieController.js'); --> incomplete, still needs to be configured
 const sessionController = require('./controllers/sessionController.js');
 const drinkController = require('./controllers/drinkController.js');
 
@@ -99,37 +95,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
 
-// connect to DB, then connect to Port9000
-// mongoose
-//   .connect(DB)
-//   .then(() => {
-//     console.log('connected to MongoDB');
-//     app.listen(PORT, () => {
-//       console.log(`IT'S OVER ${PORT}`);
-//     });
-//   })
-//   .catch((error) => {
-//     console.log(error.message, 'Error connecting to MongoDB');
-//   });
-
-// // logic that will display in terminal if mongoose to atlas encounters an error
-// mongoose.connection.on('error', (err) => {
-//   console.log('Mongoose connection error: ', err)
-// });
-
-// // logic that will display in terminal if mongoose to atlas is disconnected
-// mongoose.connection.on('disconnected', () => {
-//   console.log('Mongoose disconnected.')
-// });
-
 module.exports = app;
-
-
-// // // bcrypt addition
-
-// // // take in json obj and observe static files
-
-// // extras: 
-
-// // sessions/cookies for down the line
-// // bcrypt addition
