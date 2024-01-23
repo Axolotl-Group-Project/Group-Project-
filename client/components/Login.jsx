@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../scss/styles.scss';
-import { createRoot } from 'react-dom/client';
-// import { Route } from 'react-router';
-import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -11,12 +9,13 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Sarah rocks! 
-        console.log('Submitted:', { username, password });
+        // console.log('Submitted:', { username, password });
+            console.log('session is still being worked on')
+// Add login logic to add session here as well
       };
 
     const handleCreateUser = () => {
-        navigate('../CreateUser')
+        navigate('/')
     }
 
       return(

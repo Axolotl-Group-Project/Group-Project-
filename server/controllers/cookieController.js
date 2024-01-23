@@ -1,3 +1,5 @@
+// Logic in general needs to be completed so that cookies can be set up for user
+
 const User = require ('.//models/models.js');
 
 const cookieController = {};

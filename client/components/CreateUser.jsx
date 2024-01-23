@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {Link, Route, Routes, useNavigate} from "react-router-dom";
+import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import '../scss/styles.scss';
 import axios from 'axios';
 
@@ -9,20 +9,21 @@ const CreateUser = () => {
   //added state for confirm password input field
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-
-  const newUser = async (username, password) => {
+// passing in an object below into newUser vvv
+  const newUser = async (username, password1) => {
     try {
-      const response = await axios.post('/createUser', {
-        username,
-        password,
+      //Updated the path to /signup
+      console.log('console.log in CreateUser',{'userName':username,'password':password1})
+      const response = await axios.post('http://localhost:9000/signup', {
+        // was playing around with userName':username.username, but the userName is always undefined
+        'userName':username,
+        'password':password1
       });
       console.log('user registered successfully:', response.data)
     } catch (err) {
-      console.err('Error registering user:', err);
+      console.log('Error registering user:', err);
     }
   };
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,23 +31,22 @@ const CreateUser = () => {
     if (password === confirmPassword) {
     await newUser(username, password);
     } else {
+      console.log('else in handleSubmit');
       alert('Had too much to drink? Passwords do not match!');
     }
   };
 
   const handleLoginClick = () => {
-    navigate('../Login')
+    navigate('/Login')
   };
 
   return (
     <div>
         <h1 className='landing-page-title'>Let your Drink App journey begin!</h1>
-
-        {/* <div className='sub-container'> */}
-
         <h2 className='description'>Log your deepest, darkest thoughts on drinks...</h2>
         <div className='form-container'>
-          <form>
+          {/* added onSubmit={handleSubmit} to the form logic below*/}
+          <form onSubmit={handleSubmit}>
             <h3>Create Account</h3>
             <br />
             <label>Username:</label>
@@ -72,15 +72,14 @@ const CreateUser = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               />
             <br />
-            <button type='submit' onClick={handleSubmit}>Create Account</button>
+            <button type='submit'>Create Account</button>
             <br />
             <label>Already have an account?</label>
             <button onClick={handleLoginClick}>Login</button>
           </form>
         </div>
-        </div>
-    // </div>
+    </div>
   )
-  }
-  
+  };
+
 export default CreateUser;

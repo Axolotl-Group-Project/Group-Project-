@@ -1,3 +1,162 @@
+// Please refer to DrinkFeed.jsx, line 239 for more information on what the "Bar Shelf SCSS" is used for
+
+// *** BAR SHELF SCSS *** //
+
+// .search-bar{
+//     position: absolute;
+//     top: 80px;
+//     right: 55px;
+//     width: 100%;
+//     justify-content: end;
+//     align-items: center;
+//     // margin-right: 50px;
+//     text-align: right;
+//     height: 100px;
+//     border-radius: 8px;
+//     // background-color: #ffffff;
+//     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+// }
+
+// .add-drink-container{
+//     background-color: rgba(245, 245, 220, 0.75);
+//     // background-color: rgb(37, 36, 36);
+//     // display: flex;
+//     // justify-content: space-between;
+//     position: absolute;
+//     top: 150px;
+//     border: solid;
+//     height: 350px;
+//     width: 1200px;
+//     // opacity: 0.95;
+//     // width: calc(100% - 10%);
+//     // margin: auto;
+//     border-radius: 8px;
+// }
+
+// .drink-form {
+//     margin-top: 20px;
+//     position: absolute;
+//     // flex-direction: column;
+//     // background-color: yellow;
+//     // background-color: rgb(37, 36, 36);
+//     margin-left: 80px;
+//     width: 200px;
+//     border-radius: 8px;
+//     gap: 5px;
+//     line-height: 30px;
+//     // margin-top: auto;
+//     margin-bottom: auto;
+//     // opacity: 0.9;
+//     // background-color: blue;
+// }
+
+// .drink-form label {
+//     align-items: center;
+//     justify-content: center;
+//     opacity: unset;
+//     color: #000;
+//     // text-align: center;
+//     opacity: 1;
+// }
+
+// .add-drink-button{
+//     position: absolute;
+//     height: 150px;
+//     width: 150px;
+//     // margin-top: 100px;
+//     // margin-right: 200px;
+//     right: 80px;
+//     top: 85px;
+//     padding: 15px 30px;
+//     cursor: pointer;
+//     background-color: rgb(37, 36, 36);
+//     border-radius: 20px;
+//     color: antiquewhite;
+// }
+
+// .feed-table-title h3 {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     // width: 100px;
+//     // opacity: 0.75;
+// }
+
+// // /* Base container for the whole feed */
+// .drink-feed-container {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     height: 100vh;
+//     width: 100%;
+//     padding: 20px;
+//     box-sizing: border-box;
+// }
+
+// // /* Style for each virtual drink item */
+
+// .virtual-drink-bar {
+//     display: flex;
+//     position: absolute;
+//     flex-direction: row;
+//     top: 600px;
+//     gap: 10px;
+//     padding: 10px;
+//     height: 75px;
+//     overflow-x: auto; // Make it scrollable horizontally
+//     white-space: nowrap; // prevent drinks from wrapping to the next line
+//     background-color: #a67c52;
+//     border-radius: 10px;
+// }
+
+// .virtual-drink {
+//     flex: 0 0 auto; 
+//     padding: 10px;
+//     border: 2px solid #000;
+//     border-radius: 10px; 
+//     background-color: #f0f0f0; 
+//     box-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
+//     text-align: center; 
+//     min-width: 120px; 
+//     cursor: pointer;
+// }
+
+// .virtual-drink:hover {
+//     transform: translateY(-3px);
+// }
+
+// /* Style for the details modal overlay */
+// .modal-overlay {
+//     position: fixed;
+//     inset: 0;
+//     background-color: rgba(0, 0, 0, 0.6);
+// }
+
+// /* Style for the details modal content */
+// .modal-panel {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     background-color: white;
+//     border-radius: 15px;
+//     padding: 30px;
+//     width: 80%;
+//     max-width: 500px;
+//     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+// }
+
+// ** END OF BAR SHELF SCSS *** //
+
+//**** ORIGINAL SCSS ****//
+
+.feed-page-container {
+    // background-color: grey;
+    // border: solid;
+    height: 100vh;
+    width: 100%;
+}
+
 .search-bar{
     display: flex;
     width: 100%;
@@ -17,13 +176,6 @@
     margin-top: 15px;
     background-color: rgb(255, 255, 255);
     border-radius: 8px;
-}
-
-.feed-page-container {
-    // background-color: grey;
-    // border: solid;
-    height: 100vh;
-    width: 100%;
 }
 
 .add-drink-container{
@@ -79,75 +231,74 @@
     border: 1px solid #000;
     height: 120px;
     width: 120px;
-    margin-right: 50px;
-    margin-top: 15px;
-    background-color: rgb(255, 255, 255);
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    // background-color: rgb(255, 255, 255);
+    background-color: antiquewhite;
+    // border-radius: 100px;
+}
+
+.image-container p {
+    // background-color: brown;
+    display: flex;
+    // align-items: center;
+    // line-height: 50%;
+    margin-top: 47px;
+    // top: 50px;
+    margin-left: 39px;
+    border-radius: 200px;
+    text-wrap: nowrap
 }
 
 .drink-item {
     display: flex;
     justify-content: space-between;
     border: 1px solid #000;
-    background-color: blue;
+    background-color: rgb(218, 184, 131);
+    border-radius: 20px;
+    gap: 5px;
 }
 
 .delete-button {
-    background-color: red;
+    background-color: rgb(233, 57, 57);
+    height: 50px;
+    margin-top: 10%;
+    width: 70px;
+    border-radius: 100px;
+}
+
+.edit-button {
+    background-color: rgb(162, 238, 219);
+    height: 50px;
+    margin-top: 10%;
+    width: 70px;
+    border-radius: 100px;
 }
 
 .feed-table-title {
-    // display: flex;
-    background-color: beige;
-    height: 100vh;
     border: 1px solid #000;
-    border-radius: 8px;
-    opacity: 0.75;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    width: 100%;
+    max-width: 1162px;
+    height: 200px;
+    margin: auto; 
+    padding: 20px; 
+    overflow-x: auto; 
+    white-space: nowrap;
+    background-color: #a67c52; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
 }
 
 .feed-table-title h3 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // opacity: 0.75;
+    position: absolute;
+    top: 1px;
+    right: 435px;
 }
-// .btn {  
-//     font-family: Arial, Helvetica, sans-serif;  
-//     text-transform: uppercase;
-// }  
 
-// .btn:hover .btn-slide-show-text1 {  
-//     margin-left: 65px;
-// }  
-
-// .btn-slide-bottom {  
-//     display: block;  
-//     cursor: pointer;  
-//     border: none;  
-//     text-align: center;  
-//     overflow: hidden;  
-//     font-weight: 700;  
-//     font-size: 15px;  
-//     background-color: rgb(51, 51, 51);  
-//     padding: 17px 45px;  
-//     transition: all 0.5s ease-in-out 0s;  
-//     color: rgb(255, 255, 255) !important;
-// }  
-    
-// .btn-slide-bottom span {  
-//     position: relative;  
-//     z-index: 1;
-// }  
-
-// .btn-slide-bottom::after {  
-//     content: "";  
-//     position: absolute;  
-//     left: 0px;  top: 0px;  height: 490%;  width: 140%;  transition: all 0.5s ease-in-out 0s;  transform: translateX(-98%) translateY(-25%) rotate(45deg);
-// }  
-
-// .btn-slide-bottom:hover::after {  
-//     transform: translateX(-9%) translateY(-25%) rotate(45deg);
-// }  
-
-// .btn-slide-bottom--blue::after {  
-//     background: rgb(58, 134, 255);
-// }  
+// *** END OF ORIGINAL SCSSS *** //
